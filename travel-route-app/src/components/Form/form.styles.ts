@@ -3,23 +3,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  height: 334px;
+  height: inherit;
+  min-height: 334px;
   width: 85%;
   justify-content: space-between;
-
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #f2f2f2;
-    border-radius: 5px;
-  }
 `;
 
 export const FormContent = styled.div`
@@ -39,17 +26,7 @@ export const AddButton = styled.button`
   color: #7786d2;
   background: transparent;
   padding: 2px;
-  border-radius: 0;
-
-  cursor: pointer;
-
-  :hover {
-    color: #7786d2;
-  }
-
-  :visited {
-    color: #7786d2;
-  }
+  border: 1px solid transparent;
 `;
 
 export const InputArea = styled.div`
@@ -64,8 +41,29 @@ export const RemoveButton = styled.button`
   height: 10px;
   display: flex;
   align-items: center;
+  border: none;
 `;
 
 export const SubmitButtonArea = styled.div`
   align-items: end;
+`;
+
+export const SubmitButton = styled.button`
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background-color: #374151;
+  color: #e5e7eb;
+  padding: 8px 12px 8px 12px;
+
+  &:disabled {
+    color: #fff;
+    background: #e5e7eb;
+    cursor: default;
+  }
 `;

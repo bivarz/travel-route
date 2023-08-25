@@ -9,6 +9,7 @@ import {
   FormContent,
   InputArea,
   SubmitButtonArea,
+  SubmitButton,
 } from "./form.styles";
 
 interface AdditionalStops {
@@ -76,7 +77,7 @@ export const FormComponent = () => {
         )}
       </FormContent>
       <SubmitButtonArea>
-        <button>Submit</button>
+        <SubmitButton disabled={true}>Submit</SubmitButton>
       </SubmitButtonArea>
     </Container>
   );
