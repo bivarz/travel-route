@@ -19,4 +19,7 @@ export const Middle = styled.section`
 
 export const Right = styled.section`
   width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;

@@ -1,13 +1,13 @@
-// import "react-calendar/dist/Calendar.css";
+import { Container, Content /*, ErrorMsg , Title*/ } from "./calendar.styles";
+import { CustomInput } from "../InputField/index";
 
-// import { Container } from './styles';
-
-export const CalendarComponent = () => {
+export const Calendar = () => {
   return (
-    <div>
-      <div>
-        <p>Header</p>
-      </div>
-    </div>
+    <Container>
+      <Content>
+        <CustomInput fullWidth={false} label="Date" type="date-field" />
+      </Content>
+      {/* <ErrorMsg>Select passengers</ErrorMsg> */}
+    </Container>
   );
 };

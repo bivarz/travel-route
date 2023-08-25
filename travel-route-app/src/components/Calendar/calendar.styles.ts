@@ -1,15 +1,8 @@
 import styled from "styled-components";
 
-interface StyledContentProps {
-  hasError: boolean;
-}
-
 export const Container = styled.div`
   width: fit-content;
   background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
 `;
 
 export const Title = styled.p`
@@ -19,18 +12,9 @@ export const Title = styled.p`
   line-height: 16px;
   letter-spacing: 0em;
   text-align: left;
-  margin: 0px;
 `;
 
-export const Content = styled.div<StyledContentProps>`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid ${(props) => (props.hasError ? "#ff0000" : "#e5e7eb")};
-  padding: 5px 8px;
-  border-radius: 8px;
-  width: 120px;
-`;
+export const Content = styled.div``;
 
 export const Button = styled.button`
   width: 21px;
@@ -58,5 +42,4 @@ export const ErrorMsg = styled.p`
   letter-spacing: 0em;
   text-align: left;
   color: #ff0000;
-  margin: 0;
 `;
