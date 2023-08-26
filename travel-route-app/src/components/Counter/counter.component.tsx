@@ -19,7 +19,7 @@ export const Counter = () => {
   return (
     <Container>
       <Title>Passengers</Title>
-      <Content hasError={error}>
+      <Content $hasError={error}>
         <Button onClick={handleDecrement} disabled={count === 0}>
           -
         </Button>

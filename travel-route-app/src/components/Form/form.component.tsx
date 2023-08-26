@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { CustomInput } from "../InputField/index";
 import CancelIcon from "../../assets/icons/cancel-icon.svg";
 
@@ -49,15 +49,15 @@ export const FormComponent = () => {
     <Container>
       <FormContent>
         <CustomInput
-          fullWidth={true}
+          $fullwidth={true}
           label="City of origin"
           // errorMsg="You must choose the city of origin"
         />
-        {additionalStops.map((stop) => (
-          <>
+        {additionalStops.map((stop, index) => (
+          <React.Fragment key={index}>
             <InputArea key={stop.id}>
               <CustomInput
-                fullWidth={true}
+                $fullwidth={true}
                 key={stop.id}
                 label="City of destination"
                 // errorMsg="You must choose the city of origin"
@@ -72,7 +72,7 @@ export const FormComponent = () => {
                 </RemoveButton>
               )}
             </InputArea>
-          </>
+          </React.Fragment>
         ))}
         {additionalStops.length < 5 && (
           <AddButton onClick={() => handleAddStop()}>Add destination</AddButton>

@@ -4,6 +4,7 @@ export const Container = styled.div`
   padding: 0px 25px;
 `;
 export const PointsArea = styled.div`
+  position: relative;
   margin: 30px 0px 10px 0px;
   display: flex;
   flex-direction: column;
@@ -13,6 +14,18 @@ export const PointsArea = styled.div`
 
 export const Image = styled.img`
   margin: 0px;
+`;
+
+export const Point = styled.div`
+  position: relative;
+  width: max-content;
+
+  p {
+    top: -16px;
+    left: 30px;
+    position: absolute;
+    width: max-content;
+  }
 `;
 
 export const Line = styled.div`

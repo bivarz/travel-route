@@ -18,6 +18,8 @@ import "react-calendar/dist/Calendar.css";
 import ArrowLeft from "../../assets/icons/arrow-left-icon.svg";
 import ArrowRight from "../../assets/icons/arrow-right-icon.svg";
 import { useState, useEffect, useRef } from "react";
+import { abbrDaysOfWeek, abbrMonthsOfYear } from "../../utils/index";
+import { Select } from "../Select";
 
 type ValuePiece = Date | null;
 
@@ -26,11 +28,11 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 export const CalendarCustom = () => {
   const [value, onChange] = useState<Value>(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
+  // const [selectedMonth, setSelectedMonth] = useState("");
+  const [showMonthList, setShowMonthList] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
   const dateNow = new Date(Date.now()).toLocaleString().split(",")[0];
-
-  const abbrDaysOfWeek = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
   const handleDocumentClick = (event: MouseEvent) => {
     if (
@@ -58,7 +60,7 @@ export const CalendarCustom = () => {
           ref={inputRef}
         >
           <CustomInput
-            fullWidth={false}
+            $fullwidth={false}
             label="Date"
             type="date-field"
             value={`${dateNow}`}
@@ -72,7 +74,10 @@ export const CalendarCustom = () => {
                   <img src={ArrowLeft} alt="left" />
                 </NavigationButton>
                 <SelectDateArea>
-                  <SelectMonth>JAN</SelectMonth>
+                  <SelectMonth onClick={() => setShowMonthList(true)}>
+                    JAN
+                  </SelectMonth>
+                  {showMonthList && <Select data={abbrMonthsOfYear} />}
                   <SelectYear>2023</SelectYear>
                 </SelectDateArea>
                 <NavigationButton>

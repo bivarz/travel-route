@@ -1,9 +1,12 @@
-import React from "react";
+import { Container, Middle } from "./search-results.styles";
+import { Timeline } from "../../components/Timeline/timeline.component";
 
-// import { Container } from './styles';
-
-const Results: React.FC = () => {
-  return <div />;
+export const SearchResults = () => {
+  return (
+    <Container>
+      <Middle>
+        <Timeline />
+      </Middle>
+    </Container>
+  );
 };
-
-export default Results;
