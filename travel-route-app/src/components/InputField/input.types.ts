@@ -8,4 +8,6 @@ export interface CustomInputTypes {
   value?: string;
   className?: string;
   key?: number | string;
+  fullWidth: boolean;
+  type?: string;
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CustomInput } from "./InputField/index";
+import { CustomInput } from "../InputField/index";
 import CancelIcon from "../../assets/icons/cancel-icon.svg";
 
 import {
@@ -49,16 +49,18 @@ export const FormComponent = () => {
     <Container>
       <FormContent>
         <CustomInput
+          fullWidth={true}
           label="City of origin"
-          errorMsg="You must choose the city of origin"
+          // errorMsg="You must choose the city of origin"
         />
         {additionalStops.map((stop) => (
           <>
             <InputArea key={stop.id}>
               <CustomInput
+                fullWidth={true}
                 key={stop.id}
                 label="City of destination"
-                errorMsg="You must choose the city of origin"
+                // errorMsg="You must choose the city of origin"
                 value={stop.value}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleChange(stop.id, e.target.value)

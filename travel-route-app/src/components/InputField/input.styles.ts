@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
+interface InputProps {
+  fullWidth: boolean;
+}
+
 export const Container = styled.div`
-  min-width: 387px;
+  min-width: 320px;
 `;
 
 export const Content = styled.div`
@@ -25,13 +29,23 @@ export const Label = styled.p`
   margin: 0px;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<InputProps>`
   font-family: Inter;
   border-radius: 6px;
   height: 32px;
-  width: 100%;
+  width: ${(props) => (props.fullWidth ? "100%" : "132px")};
   border: 1px solid #e5e7eb;
   color: #374151;
+
+  &.date {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #374151;
+    word-spacing: 2px;
+  }
 `;
 
 export const ErrorMsg = styled.p`
