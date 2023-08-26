@@ -36,6 +36,16 @@ export const Input = styled.input<InputProps>`
   width: ${(props) => (props.fullWidth ? "100%" : "132px")};
   border: 1px solid #e5e7eb;
   color: #374151;
+
+  &.date {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #374151;
+    word-spacing: 2px;
+  }
 `;
 
 export const ErrorMsg = styled.p`

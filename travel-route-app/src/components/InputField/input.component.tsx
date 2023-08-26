@@ -41,11 +41,12 @@ export const CustomInput = ({
         <>
           <Label>{label}</Label>
           <Input
-            type="date"
+            type="text"
             value={value}
             onChange={onChange}
             key={key}
             fullWidth={fullWidth}
+            className="date"
           />
         </>
       )}
