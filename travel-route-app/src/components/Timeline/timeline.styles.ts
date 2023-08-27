@@ -4,6 +4,7 @@ export const Container = styled.div`
   padding: 0px 25px;
 `;
 export const PointsArea = styled.div`
+  position: relative;
   margin: 30px 0px 10px 0px;
   display: flex;
   flex-direction: column;
@@ -13,6 +14,26 @@ export const PointsArea = styled.div`
 
 export const Image = styled.img`
   margin: 0px;
+`;
+
+export const Point = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const CitiesName = styled.p`
+  top: 0px;
+  left: 30px;
+  position: absolute;
+  width: max-content;
+  margin: 0;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
 `;
 
 export const Line = styled.div`

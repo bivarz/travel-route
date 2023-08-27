@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Container,
   Content,
@@ -14,12 +15,11 @@ export const CustomInput = ({
   value,
   onChange,
   className,
-  key,
-  fullWidth = true,
+  $fullwidth = true,
   type = "text",
 }: CustomInputTypes) => {
   return (
-    <>
+    <React.Fragment>
       {type === "text" && (
         <Container>
           <Content className={className}>
@@ -29,8 +29,7 @@ export const CustomInput = ({
                 type="text"
                 value={value}
                 onChange={onChange}
-                key={key}
-                fullWidth={fullWidth}
+                $fullwidth={$fullwidth}
               />
             </InputFieldArea>
             <ErrorMsg>{errorMsg}</ErrorMsg>
@@ -38,18 +37,17 @@ export const CustomInput = ({
         </Container>
       )}
       {type === "date-field" && (
-        <>
+        <React.Fragment>
           <Label>{label}</Label>
           <Input
             type="text"
             value={value}
             onChange={onChange}
-            key={key}
-            fullWidth={fullWidth}
+            $fullwidth={$fullwidth}
             className="date"
           />
-        </>
+        </React.Fragment>
       )}
-    </>
+    </React.Fragment>
   );
 };

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface InputProps {
-  fullWidth: boolean;
+  $fullwidth: boolean;
 }
 
 export const Container = styled.div`
@@ -33,7 +33,7 @@ export const Input = styled.input<InputProps>`
   font-family: Inter;
   border-radius: 6px;
   height: 32px;
-  width: ${(props) => (props.fullWidth ? "100%" : "132px")};
+  width: ${(props) => (props.$fullwidth ? "100%" : "132px")};
   border: 1px solid #e5e7eb;
   color: #374151;
 
