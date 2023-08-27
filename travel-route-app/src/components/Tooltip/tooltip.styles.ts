@@ -6,27 +6,14 @@ export const Container = styled.div`
   right: 30px;
   width: max-content;
   min-width: 48px;
-  height: fit-content;
+  height: 23px;
   border: 1px solid #7786d2;
-  display: flex;
-  justify-content: center;
   border-radius: 6px;
   background-color: #fff;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 0px 10px;
-  color: #7786d2;
-
-  & p {
-    margin: 0px;
-    font-family: Inter;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 16px;
-    text-align: center;
-    color: #c7d1f4;
-  }
+  padding: 0px 8px;
 
   &::before {
     content: "";
@@ -53,4 +40,15 @@ export const Container = styled.div`
     border-color: transparent transparent transparent #fff;
     transform: translateY(-50%);
   }
+`;
+
+export const Typography = styled.p`
+  margin: 0px;
+  padding: 0px;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+  color: #7786d2;
 `;

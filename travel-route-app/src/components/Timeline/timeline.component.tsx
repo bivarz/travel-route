@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Circle from "../../assets/icons/circe-icon.svg";
 import LocationIcon from "../../assets/icons/location-point-icon.svg";
@@ -11,33 +12,40 @@ import {
   AddNewPointButton,
   PointsArea,
   Point,
+  CitiesName,
 } from "./timeline.styles";
+type TimeLineProps = {
+  data?: string[];
+};
 
-export const Timeline = () => {
-  const points = [0, 1, 2];
-  const cities = ["Paris", "Aix-en-Proence", "Montpellier"];
+export const Timeline = ({ data }: TimeLineProps) => {
+  const points = [0, 1];
 
   return (
     <Container>
       <PointsArea>
         {points.map((index) => (
-          <React.Fragment key={index}>
-            {index > 0 && <Line key={index} />}
-            <Point key={index}>
+          <React.Fragment key={Math.random()}>
+            {index > 0 && <Line />}
+            <Point>
               <Image
                 src={index === points.length - 1 ? LocationIcon : Circle}
                 alt="point-icon"
               />
-              {cities ? <p>{cities[index]}</p> : null}
-              {index > 0 && <Tooltip />}
+              {data?.length !== 0 ? (
+                <CitiesName>{data?.[index] || ""}</CitiesName>
+              ) : null}
+              {index > 0 && data ? <Tooltip /> : null}
             </Point>
           </React.Fragment>
         ))}
       </PointsArea>
       <AddNewPointButtonArea>
-        <AddNewPointButton>
-          <Image src={PlusIcon} alt="point-icon" />
-        </AddNewPointButton>
+        {data === undefined && (
+          <AddNewPointButton>
+            <Image src={PlusIcon} alt="point-icon" />
+          </AddNewPointButton>
+        )}
       </AddNewPointButtonArea>
     </Container>
   );

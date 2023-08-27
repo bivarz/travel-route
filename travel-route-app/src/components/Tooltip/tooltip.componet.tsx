@@ -1,4 +1,8 @@
-import { Container } from "./tooltip.styles";
+import { Container, Typography } from "./tooltip.styles";
 export const Tooltip = () => {
-  return <Container>Tooltip</Container>;
+  return (
+    <Container>
+      <Typography>765.30 km</Typography>
+    </Container>
+  );
 };

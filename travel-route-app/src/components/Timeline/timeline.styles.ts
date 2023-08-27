@@ -18,14 +18,22 @@ export const Image = styled.img`
 
 export const Point = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const CitiesName = styled.p`
+  top: 0px;
+  left: 30px;
+  position: absolute;
   width: max-content;
-
-  p {
-    top: -16px;
-    left: 30px;
-    position: absolute;
-    width: max-content;
-  }
+  margin: 0;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
 `;
 
 export const Line = styled.div`
