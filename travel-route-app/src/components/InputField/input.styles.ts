@@ -59,8 +59,8 @@ export const ClearInputButton = styled.button`
   position: absolute;
   border: none;
   background-color: transparent;
-  top: 10px;
-  right: 10px;
+  top: 5px;
+  right: -10px;
 `;
 
 export const ErrorMsg = styled.p`

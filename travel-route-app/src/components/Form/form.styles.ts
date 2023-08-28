@@ -32,7 +32,7 @@ export const AddButton = styled.button`
 export const InputArea = styled.div`
   width: 320px;
   display: flex;
-  gap: 5px;
+  gap: 15px;
   align-items: center;
 `;
 export const InputWrapper = styled.div`
@@ -40,7 +40,7 @@ export const InputWrapper = styled.div`
   position: relative;
 `;
 
-export const InputSugestions = styled.div`
+export const InputSuggestions = styled.div`
   position: absolute;
   width: inherit;
   max-height: max-content;

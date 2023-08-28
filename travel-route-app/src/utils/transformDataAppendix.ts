@@ -1,43 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { SelectValueType } from "../components/Select/select.types";
-
 type AppendixItem = [string, number, number];
 
-type ObjectItem = {
-  label: string;
-  fullName?: string;
-  latitude?: number;
-  longitude?: number;
-};
-
-const transformArrayToSelectValue = (item: AppendixItem): ObjectItem => {
-  return {
-    label: item[0],
-    latitude: item[1],
-    longitude: item[2],
-  };
-};
-
-export const transformAppendix = (
-  data: (AppendixItem | SelectValueType)[]
-): SelectValueType[] => {
-  return data.map((item) => {
-    if (Array.isArray(item)) {
-      return transformArrayToSelectValue(item);
-    } else if (typeof item === "string" || typeof item === "number") {
-      return item;
-    } else {
-      return {
-        label: item.label,
-        fullName: item.fullName,
-        latitude: item.latitude,
-        longitude: item.longitude,
-      };
-    }
-  });
-};
-
-const originalAppendix: (AppendixItem | SelectValueType)[] = [
+const AppendixA: AppendixItem[] = [
   ["Paris", 48.856614, 2.352222],
   ["Marseille", 43.296482, 5.36978],
   ["Lyon", 45.764043, 4.835659],
@@ -60,5 +23,27 @@ const originalAppendix: (AppendixItem | SelectValueType)[] = [
   ["Aix-en-Provence", 43.529742, 5.447427],
 ];
 
-export const transformedArray: SelectValueType[] =
-  transformAppendix(originalAppendix);
+type TransformedItem = {
+  city: string;
+  la: number;
+  lo: number;
+};
+
+const transformArrayToTransformedItem = (
+  item: AppendixItem
+): TransformedItem => {
+  return {
+    city: item[0],
+    la: item[1],
+    lo: item[2],
+  };
+};
+
+export const transformToTransformedArray = (
+  data: AppendixItem[]
+): TransformedItem[] => {
+  return data.map(transformArrayToTransformedItem);
+};
+
+export const transformedAppendixA: TransformedItem[] =
+  transformToTransformedArray(AppendixA);

@@ -9,6 +9,7 @@ import {
   Label,
 } from "./input.styles";
 import { CustomInputTypes } from "./input.types";
+import CancelXIcon from "../../assets/icons/x-icon.svg";
 
 export const CustomInput = ({
   label,
@@ -35,7 +36,9 @@ export const CustomInput = ({
                 $fullwidth={$fullwidth}
               ></Input>
               {showClearButton && (
-                <ClearInputButton onClick={onClear}>X</ClearInputButton>
+                <ClearInputButton onClick={onClear}>
+                  <img src={CancelXIcon} alt="" />
+                </ClearInputButton>
               )}
             </InputFieldArea>
             <ErrorMsg>{errorMsg}</ErrorMsg>
