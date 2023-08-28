@@ -1,48 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { CustomInput } from "../InputField/index";
 import CancelIcon from "../../assets/icons/cancel-icon.svg";
-
+import useAdditionalStops from "../../hooks/useAdditionalStops";
 import {
-  AddButton,
   Container,
-  RemoveButton,
-  FormContent,
   InputArea,
+  AddButton,
   SubmitButtonArea,
   SubmitButton,
+  RemoveButton,
+  FormContent,
 } from "./form.styles";
-
-interface AdditionalStops {
-  id: number;
-  value: string;
-}
+import { Select } from "../Select";
 
 export const FormComponent = () => {
-  const [additionalStops, setAdditionalStops] = useState<AdditionalStops[]>([
-    { id: 1, value: "" },
-  ]);
+  const { additionalStops, addStop, removeStop, updateStop } =
+    useAdditionalStops([{ id: 1, value: "" }]);
 
   const handleAddStop = () => {
     if (additionalStops.length === 5) {
       return;
     }
-    const newId =
-      additionalStops.length > 0
-        ? additionalStops[additionalStops.length - 1].id + 1
-        : 0;
-    setAdditionalStops([...additionalStops, { id: newId, value: "" }]);
-  };
-
-  const handleRemoveStop = (index: number) => {
-    const newStops = additionalStops.filter((stop) => stop.id !== index);
-    setAdditionalStops(newStops);
-  };
-
-  const handleChange = (index: number, value: string) => {
-    const newStops = additionalStops.map((stop) =>
-      stop.id === index ? { ...stop, value } : stop
-    );
-    setAdditionalStops(newStops);
+    addStop();
   };
 
   return (
@@ -53,26 +32,28 @@ export const FormComponent = () => {
           label="City of origin"
           // errorMsg="You must choose the city of origin"
         />
-        {additionalStops.map((stop, index) => (
-          <React.Fragment key={index}>
-            <InputArea key={stop.id}>
+        {additionalStops.map((stop) => (
+          <InputArea key={stop.id}>
+            <div>
               <CustomInput
                 $fullwidth={true}
-                key={stop.id}
                 label="City of destination"
-                // errorMsg="You must choose the city of origin"
                 value={stop.value}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleChange(stop.id, e.target.value)
+                  updateStop(stop.id, e.target.value)
                 }
+                // error={/* implemente a lógica de validação de erro aqui */}
+                showClearButton={stop.value !== ""}
+                onClear={() => updateStop(stop.id, "")}
               />
-              {additionalStops.length > 1 && (
-                <RemoveButton onClick={() => handleRemoveStop(stop.id)}>
-                  <img src={CancelIcon} alt="" />
-                </RemoveButton>
-              )}
-            </InputArea>
-          </React.Fragment>
+              <Select data={[]} />
+            </div>
+            {additionalStops.length > 1 && (
+              <RemoveButton onClick={() => removeStop(stop.id)}>
+                <img src={CancelIcon} alt="" />
+              </RemoveButton>
+            )}
+          </InputArea>
         ))}
         {additionalStops.length < 5 && (
           <AddButton onClick={() => handleAddStop()}>Add destination</AddButton>

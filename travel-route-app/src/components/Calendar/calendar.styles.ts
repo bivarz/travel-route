@@ -55,7 +55,7 @@ export const FloatingBox = styled.div`
   position: absolute;
   top: 0px;
   width: 221px;
-  height: 203px;
+  height: 221px;
   border: 1px solid #c7d1f4;
   display: flex;
   justify-content: center;

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ClearInputButton,
   Container,
   Content,
   ErrorMsg,
@@ -17,6 +18,8 @@ export const CustomInput = ({
   className,
   $fullwidth = true,
   type = "text",
+  showClearButton,
+  onClear,
 }: CustomInputTypes) => {
   return (
     <React.Fragment>
@@ -30,7 +33,10 @@ export const CustomInput = ({
                 value={value}
                 onChange={onChange}
                 $fullwidth={$fullwidth}
-              />
+              ></Input>
+              {showClearButton && (
+                <ClearInputButton onClick={onClear}>X</ClearInputButton>
+              )}
             </InputFieldArea>
             <ErrorMsg>{errorMsg}</ErrorMsg>
           </Content>

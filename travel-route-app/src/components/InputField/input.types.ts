@@ -10,4 +10,6 @@ export interface CustomInputTypes {
   key?: number | string;
   $fullwidth: boolean;
   type?: string;
+  showClearButton?: boolean;
+  onClear?: () => void;
 }

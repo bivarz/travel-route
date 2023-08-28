@@ -7,7 +7,7 @@ import {
 } from "./search-results.styles";
 import { Timeline } from "../../components/Timeline/timeline.component";
 
-export const SearchResults = () => {
+const Results: React.FC = () => {
   const error = true;
   const cities = ["Paris", "Aix-en-Proence", "Montpellier"];
   const distance = 765.3;
@@ -38,3 +38,5 @@ export const SearchResults = () => {
     </Container>
   );
 };
+
+export default Results;

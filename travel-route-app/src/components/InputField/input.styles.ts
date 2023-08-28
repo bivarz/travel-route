@@ -15,6 +15,7 @@ export const Content = styled.div`
 `;
 
 export const InputFieldArea = styled.div`
+  position: relative;
   input:focus {
     outline: none;
     border: 1px solid #c7d1f4;
@@ -36,6 +37,13 @@ export const Input = styled.input<InputProps>`
   width: ${(props) => (props.$fullwidth ? "100%" : "132px")};
   border: 1px solid #e5e7eb;
   color: #374151;
+  padding-left: 10px;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0px;
 
   &.date {
     font-family: Inter;
@@ -46,6 +54,14 @@ export const Input = styled.input<InputProps>`
     color: #374151;
     word-spacing: 2px;
   }
+`;
+
+export const ClearInputButton = styled.button`
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  top: 10px;
+  right: 10px;
 `;
 
 export const ErrorMsg = styled.p`
