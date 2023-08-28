@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { CustomInput } from "../InputField/index";
 import CancelIcon from "../../assets/icons/cancel-icon.svg";
 import useAdditionalStops from "../hooks/useAdditionalStops";
@@ -14,18 +14,16 @@ import {
   InputSuggestions,
 } from "./form.styles";
 import { transformedAppendixA } from "../../utils/transformDataAppendix";
+import { GlobalContext } from "../../context/GlobalContext";
 
 export const FormComponent = () => {
-  const { additionalStops, addStop, removeStop, updateStop } =
-    useAdditionalStops([
-      { id: 1, value: "" },
-      { id: 2, value: "" },
-    ]);
+  const { listOfFields } = useContext(GlobalContext);
+  const { addStop, removeStop, updateStop } = useAdditionalStops();
   const [showSuggestionsCities, setShowSuggestionsCities] = useState(false);
   const [filterText, setFilterText] = useState("");
 
   const handleAddStop = () => {
-    if (additionalStops.length === 5) {
+    if (listOfFields.length === 5) {
       return;
     }
     addStop();
@@ -58,7 +56,7 @@ export const FormComponent = () => {
   return (
     <Container>
       <FormContent>
-        {additionalStops.map((stop) => (
+        {listOfFields.map((stop) => (
           <InputArea key={stop.id}>
             <InputWrapper>
               <CustomInput
@@ -87,14 +85,14 @@ export const FormComponent = () => {
                 </InputSuggestions>
               )}
             </InputWrapper>
-            {additionalStops.length > 2 && stop.id !== 1 && (
+            {listOfFields.length > 2 && stop.id !== 1 && (
               <RemoveButton onClick={() => removeStop(stop.id)}>
                 <img src={CancelIcon} alt="" />
               </RemoveButton>
             )}
           </InputArea>
         ))}
-        {additionalStops.length < 5 && (
+        {listOfFields.length < 5 && (
           <AddButton onClick={() => handleAddStop()}>Add destination</AddButton>
         )}
       </FormContent>

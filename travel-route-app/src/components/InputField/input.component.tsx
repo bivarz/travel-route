@@ -21,6 +21,7 @@ export const CustomInput = ({
   type = "text",
   showClearButton,
   onClear,
+  onBlur,
 }: CustomInputTypes) => {
   return (
     <React.Fragment>
@@ -54,6 +55,7 @@ export const CustomInput = ({
             onChange={onChange}
             $fullwidth={$fullwidth}
             className="date"
+            onBlur={onBlur}
           />
         </React.Fragment>
       )}

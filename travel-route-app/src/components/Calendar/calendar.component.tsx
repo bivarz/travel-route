@@ -27,12 +27,12 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const CalendarCustom = () => {
   const [value, onChange] = useState<Value>(new Date());
+  const [date, setDate] = useState<string>("");
   const [showCalendar, setShowCalendar] = useState(false);
   // const [selectedMonth, setSelectedMonth] = useState("");
   const [showMonthList, setShowMonthList] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
-  const dateNow = new Date(Date.now()).toLocaleString().split(",")[0];
 
   const handleDocumentClick = (event: MouseEvent) => {
     if (
@@ -42,6 +42,29 @@ export const CalendarCustom = () => {
       !calendarRef.current.contains(event.target as Node)
     ) {
       setShowCalendar(false);
+    }
+  };
+
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+    const numericValue = inputValue.replace(/\D/g, "");
+
+    if (numericValue.length <= 8) {
+      let formattedValue = "";
+      for (let i = 0; i < numericValue.length; i++) {
+        if (i === 2 || i === 4) {
+          formattedValue += "/";
+        }
+        formattedValue += numericValue[i];
+      }
+      setDate(formattedValue);
+    }
+
+    if (numericValue.length >= 4) {
+      const month = parseInt(numericValue.substring(2, 4), 10);
+      if (month > 12) {
+        setDate(numericValue.substring(0, 2) + "/" + numericValue.substring(4));
+      }
     }
   };
 
@@ -63,7 +86,8 @@ export const CalendarCustom = () => {
             $fullwidth={false}
             label="Date"
             type="date-field"
-            value={`${dateNow}`}
+            value={date}
+            onChange={handleDateChange}
           />
         </InputContainer>
         {showCalendar && (

@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Router } from "./router/index";
-import "./index.css";
+import { GlobalProvider } from "./context/GlobalContext";
+import "./global.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Router />
+    <GlobalProvider>
+      <Router />
+    </GlobalProvider>
   </React.StrictMode>
 );

@@ -1,38 +1,33 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
-export function useAdditionalStops(initialStops: AdditionalStop[]) {
-  const [additionalStops, setAdditionalStops] =
-    useState<AdditionalStop[]>(initialStops);
+export function useAdditionalStops() {
+  const { listOfFields, setListOfFields } = useContext(GlobalContext);
 
   const addStop = () => {
-    if (additionalStops.length === 5) {
+    if (listOfFields?.length === 5) {
       return;
     }
     const newId =
-      additionalStops.length > 0
-        ? additionalStops[additionalStops.length - 1].id + 1
+      listOfFields.length >= 2
+        ? listOfFields[listOfFields?.length - 1].id + 1
         : 0;
-    setAdditionalStops([...additionalStops, { id: newId, value: "" }]);
+    setListOfFields([...listOfFields, { id: newId, value: "" }]);
   };
 
   const removeStop = (index: number) => {
-    const newStops = additionalStops.filter((stop) => stop.id !== index);
-    setAdditionalStops(newStops);
+    const newStops = listOfFields.filter((stop) => stop.id !== index);
+    setListOfFields(newStops);
   };
 
   const updateStop = (index: number, value: string) => {
-    const newStops = additionalStops.map((stop) =>
+    const newStops = listOfFields.map((stop) =>
       stop.id === index ? { ...stop, value } : stop
     );
-    setAdditionalStops(newStops);
+    setListOfFields(newStops);
   };
 
-  return { additionalStops, addStop, removeStop, updateStop };
-}
-
-interface AdditionalStop {
-  id: number;
-  value: string;
+  return { addStop, removeStop, updateStop };
 }
 
 export default useAdditionalStops;
