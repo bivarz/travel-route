@@ -10,8 +10,10 @@ import {
   SubmitButton,
   RemoveButton,
   FormContent,
+  InputSugestions,
+  InputWrapper,
 } from "./form.styles";
-import { Select } from "../Select";
+import { transformedArray } from "../../utils/transformDataAppendix";
 
 export const FormComponent = () => {
   const { additionalStops, addStop, removeStop, updateStop } =
@@ -27,14 +29,10 @@ export const FormComponent = () => {
   return (
     <Container>
       <FormContent>
-        <CustomInput
-          $fullwidth={true}
-          label="City of origin"
-          // errorMsg="You must choose the city of origin"
-        />
+        <CustomInput $fullwidth={true} label="City of origin" />
         {additionalStops.map((stop) => (
           <InputArea key={stop.id}>
-            <div>
+            <InputWrapper>
               <CustomInput
                 $fullwidth={true}
                 label="City of destination"
@@ -42,12 +40,17 @@ export const FormComponent = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   updateStop(stop.id, e.target.value)
                 }
-                // error={/* implemente a lógica de validação de erro aqui */}
                 showClearButton={stop.value !== ""}
                 onClear={() => updateStop(stop.id, "")}
               />
-              <Select data={[]} />
-            </div>
+              <InputSugestions>
+                {transformedArray.map((item, index) => (
+                  <button key={index}>
+                    {typeof item === "object" ? item.label : item}
+                  </button>
+                ))}
+              </InputSugestions>
+            </InputWrapper>
             {additionalStops.length > 1 && (
               <RemoveButton onClick={() => removeStop(stop.id)}>
                 <img src={CancelIcon} alt="" />

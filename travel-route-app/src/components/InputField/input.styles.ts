@@ -34,11 +34,10 @@ export const Input = styled.input<InputProps>`
   font-family: Inter;
   border-radius: 6px;
   height: 32px;
-  width: ${(props) => (props.$fullwidth ? "100%" : "132px")};
+  width: ${(props) => (props.$fullwidth ? "320px" : "132px")};
   border: 1px solid #e5e7eb;
   color: #374151;
   padding-left: 10px;
-  font-family: Inter;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0em;
