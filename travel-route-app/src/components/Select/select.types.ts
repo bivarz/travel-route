@@ -1,8 +1,9 @@
 export type SelectValueType =
   | string
   | number
-  | { label: string; fullName?: string; latitude?: number; longitude?: number };
+  | { label: string; fullName?: string };
 
 export type SelectProps = {
   data: SelectValueType[];
+  handleClick: (value: string | number) => void;
 };

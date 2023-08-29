@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: absolute;
-  top: 42px;
+  top: 35px;
 `;
 export const FloatingBox = styled.div`
   width: fit-content;

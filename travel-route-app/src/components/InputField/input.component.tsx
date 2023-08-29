@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ClearInputButton,
   Container,
   Content,
   ErrorMsg,
@@ -8,6 +9,7 @@ import {
   Label,
 } from "./input.styles";
 import { CustomInputTypes } from "./input.types";
+import CancelXIcon from "../../assets/icons/x-icon.svg";
 
 export const CustomInput = ({
   label,
@@ -17,6 +19,9 @@ export const CustomInput = ({
   className,
   $fullwidth = true,
   type = "text",
+  showClearButton,
+  onClear,
+  onBlur,
 }: CustomInputTypes) => {
   return (
     <React.Fragment>
@@ -30,7 +35,12 @@ export const CustomInput = ({
                 value={value}
                 onChange={onChange}
                 $fullwidth={$fullwidth}
-              />
+              ></Input>
+              {showClearButton && (
+                <ClearInputButton onClick={onClear}>
+                  <img src={CancelXIcon} alt="" />
+                </ClearInputButton>
+              )}
             </InputFieldArea>
             <ErrorMsg>{errorMsg}</ErrorMsg>
           </Content>
@@ -45,6 +55,7 @@ export const CustomInput = ({
             onChange={onChange}
             $fullwidth={$fullwidth}
             className="date"
+            onBlur={onBlur}
           />
         </React.Fragment>
       )}

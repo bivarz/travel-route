@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useContext } from "react";
 import Circle from "../../assets/icons/circe-icon.svg";
 import LocationIcon from "../../assets/icons/location-point-icon.svg";
 import PlusIcon from "../../assets/icons/plus-icon.svg";
@@ -14,17 +14,22 @@ import {
   Point,
   CitiesName,
 } from "./timeline.styles";
+import useAdditionalStops from "../hooks/useAdditionalStops";
+import { GlobalContext } from "../../context/GlobalContext";
+
 type TimeLineProps = {
   data?: string[];
 };
 
 export const Timeline = ({ data }: TimeLineProps) => {
-  const points = [0, 1];
+  const { listOfFields } = useContext(GlobalContext);
+  const { addStop } = useAdditionalStops();
+  const points = [...listOfFields];
 
   return (
     <Container>
       <PointsArea>
-        {points.map((index) => (
+        {points.map((_, index) => (
           <React.Fragment key={Math.random()}>
             {index > 0 && <Line />}
             <Point>
@@ -41,8 +46,8 @@ export const Timeline = ({ data }: TimeLineProps) => {
         ))}
       </PointsArea>
       <AddNewPointButtonArea>
-        {data === undefined && (
-          <AddNewPointButton>
+        {listOfFields.length < 5 && (
+          <AddNewPointButton onClick={() => addStop()}>
             <Image src={PlusIcon} alt="point-icon" />
           </AddNewPointButton>
         )}

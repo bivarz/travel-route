@@ -21,7 +21,8 @@ a {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: center;
+  align-items: center;
   min-width: 310px;
   min-height: 100vh;
 }
