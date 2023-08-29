@@ -92,7 +92,14 @@ export const NavigationButton = styled.button`
   padding: 0;
 `;
 export const SelectDateArea = styled.div`
+  display: flex;
   gap: 2px;
+`;
+export const MonthArea = styled.div`
+  position: relative;
+`;
+export const YearArea = styled.div`
+  position: relative;
 `;
 export const SelectMonth = styled.button`
   position: relative;

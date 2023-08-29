@@ -1,3 +1,10 @@
+import React, { useState, useRef, useEffect } from "react";
+import { CustomInput } from "../InputField/index";
+import "react-calendar/dist/Calendar.css";
+import ArrowLeft from "../../assets/icons/arrow-left-icon.svg";
+import ArrowRight from "../../assets/icons/arrow-right-icon.svg";
+import { abbrDaysOfWeek, abbrMonthsOfYear, years } from "../../utils/index";
+import { Select } from "../Select";
 import {
   CalendarContainer,
   Container,
@@ -5,32 +12,32 @@ import {
   Days,
   FloatingBox,
   InputContainer,
+  MonthArea,
   Navigation,
   NavigationButton,
   SelectDateArea,
   SelectMonth,
   SelectYear,
-  StyledCalendar /*, ErrorMsg , Title*/,
+  StyledCalendar,
   WeekDays,
+  YearArea,
 } from "./calendar.styles";
-import { CustomInput } from "../InputField/index";
-import "react-calendar/dist/Calendar.css";
-import ArrowLeft from "../../assets/icons/arrow-left-icon.svg";
-import ArrowRight from "../../assets/icons/arrow-right-icon.svg";
-import { useState, useEffect, useRef } from "react";
-import { abbrDaysOfWeek, abbrMonthsOfYear } from "../../utils/index";
-import { Select } from "../Select";
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+type CalendarValues = {
+  day: number;
+  month: string;
+  year: number;
+  fullDate?: string;
+};
 
 export const CalendarCustom = () => {
-  const [value, onChange] = useState<Value>(new Date());
-  const [date, setDate] = useState<string>("");
+  const [value, onChange] = useState<Date>(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
-  // const [selectedMonth, setSelectedMonth] = useState("");
   const [showMonthList, setShowMonthList] = useState(false);
+  const [showYearList, setShowYearList] = useState(false);
+  const [pickDateValues, setPickDateValues] = useState<CalendarValues[]>([
+    { year: 2023, month: "aug", day: 28 },
+  ]);
   const inputRef = useRef<HTMLInputElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
 
@@ -44,6 +51,8 @@ export const CalendarCustom = () => {
       setShowCalendar(false);
     }
   };
+
+  const [date, setDate] = useState<string>("");
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -66,6 +75,12 @@ export const CalendarCustom = () => {
         setDate(numericValue.substring(0, 2) + "/" + numericValue.substring(4));
       }
     }
+  };
+
+  const handleClickPickMonth = (monthValue: string | number) => {
+    const newMonth = { ...pickDateValues, month: monthValue };
+    setPickDateValues(newMonth);
+    setShowMonthList(false);
   };
 
   useEffect(() => {
@@ -98,11 +113,35 @@ export const CalendarCustom = () => {
                   <img src={ArrowLeft} alt="left" />
                 </NavigationButton>
                 <SelectDateArea>
-                  <SelectMonth onClick={() => setShowMonthList(true)}>
-                    JAN
-                  </SelectMonth>
-                  {showMonthList && <Select data={abbrMonthsOfYear} />}
-                  <SelectYear>2023</SelectYear>
+                  <MonthArea>
+                    <SelectMonth
+                      onClick={() => setShowMonthList(!showMonthList)}
+                    >
+                      Aug
+                    </SelectMonth>
+                    {showMonthList && (
+                      <Select
+                        data={abbrMonthsOfYear}
+                        handleClick={() => ""}
+                        // handleClick={(value: string) =>
+                        //   handleClickPickMonth(value)
+                        // }
+                      />
+                    )}
+                  </MonthArea>
+                  <YearArea>
+                    <SelectYear onClick={() => setShowYearList(!showYearList)}>
+                      2023
+                    </SelectYear>
+                    {showYearList && (
+                      <Select
+                        data={years}
+                        handleClick={(value: string | number) =>
+                          handleClickPickMonth(value)
+                        }
+                      />
+                    )}
+                  </YearArea>
                 </SelectDateArea>
                 <NavigationButton>
                   <img src={ArrowRight} alt="right" />
@@ -116,7 +155,7 @@ export const CalendarCustom = () => {
                 </Days>
                 <StyledCalendar
                   className="calendar"
-                  onChange={onChange}
+                  onChange={(newValue) => onChange(newValue as Date)}
                   value={value}
                 />
               </WeekDays>
@@ -124,7 +163,6 @@ export const CalendarCustom = () => {
           </CalendarContainer>
         )}
       </Content>
-      {/* <ErrorMsg>Select passengers</ErrorMsg> */}
     </Container>
   );
 };
