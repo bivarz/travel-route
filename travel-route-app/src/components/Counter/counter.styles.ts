@@ -50,6 +50,10 @@ export const Button = styled.button`
   }
 `;
 
+export const ErrorArea = styled.div`
+  height: 15px;
+`;
+
 export const ErrorMsg = styled.p`
   font-family: Inter;
   font-size: 12px;
