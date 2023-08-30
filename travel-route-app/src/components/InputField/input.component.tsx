@@ -22,6 +22,7 @@ export const CustomInput = ({
   showClearButton,
   onClear,
   onBlur,
+  onFocus,
 }: CustomInputTypes) => {
   return (
     <React.Fragment>
@@ -35,6 +36,8 @@ export const CustomInput = ({
                 value={value}
                 onChange={onChange}
                 $fullwidth={$fullwidth}
+                onBlur={onBlur}
+                onFocus={onFocus}
               ></Input>
               {showClearButton && (
                 <ClearInputButton onClick={onClear}>

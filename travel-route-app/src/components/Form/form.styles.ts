@@ -116,6 +116,8 @@ export const RemoveButton = styled.button`
 
 export const SubmitButtonArea = styled.div`
   align-items: end;
+  display: flex;
+  justify-content: center;
 `;
 
 export const SubmitButton = styled.button`
