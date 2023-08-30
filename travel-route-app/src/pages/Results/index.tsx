@@ -8,10 +8,10 @@ import {
 import { Timeline } from "../../components/Timeline/timeline.component";
 
 const Results: React.FC = () => {
-  const error = true;
-  const cities = ["Paris", "Aix-en-Proence", "Montpellier"];
-  const distance = 765.3;
-  const passengers = 10;
+  const error = false;
+  const cities = ["Paris", "Montpellier"];
+  const distance = 463.3;
+  const passengers = 4;
   return (
     <Container>
       <Middle>
