@@ -6,12 +6,15 @@ import {
   Button,
 } from "./search-results.styles";
 import { Timeline } from "../../components/Timeline/timeline.component";
+import { useNavigate } from "react-router-dom";
 
 const Results: React.FC = () => {
   const error = false;
   const cities = ["Paris", "Montpellier"];
   const distance = 463.3;
   const passengers = 4;
+
+  const navigate = useNavigate();
   return (
     <Container>
       <Middle>
@@ -32,7 +35,7 @@ const Results: React.FC = () => {
           )}
         </DataResultsArea>
         <ButtonArea>
-          <Button>Back</Button>
+          <Button onClick={() => navigate("/")}>Back</Button>
         </ButtonArea>
       </Middle>
     </Container>

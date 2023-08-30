@@ -13,4 +13,5 @@ export interface CustomInputTypes {
   showClearButton?: boolean;
   onClear?: () => void;
   onBlur?: () => void;
+  onFocus?: () => void;
 }

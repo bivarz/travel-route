@@ -45,8 +45,9 @@ export const Timeline = ({ data }: TimeLineProps) => {
           </React.Fragment>
         ))}
       </PointsArea>
+
       <AddNewPointButtonArea>
-        {listOfFields.length < 5 && (
+        {!data && listOfFields.length < 5 && (
           <AddNewPointButton onClick={() => addStop()}>
             <Image src={PlusIcon} alt="point-icon" />
           </AddNewPointButton>

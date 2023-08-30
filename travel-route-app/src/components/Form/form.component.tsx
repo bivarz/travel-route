@@ -21,6 +21,7 @@ export const FormComponent = () => {
   const { addStop, removeStop, updateStop } = useAdditionalStops();
   const [showSuggestionsCities, setShowSuggestionsCities] = useState(false);
   const [filterText, setFilterText] = useState("");
+  const [focusedInputId, setFocusedInputId] = useState<number | null>(null);
 
   const handleAddStop = () => {
     if (listOfFields.length === 5) {
@@ -68,8 +69,9 @@ export const FormComponent = () => {
                 }}
                 showClearButton={stop.value !== ""}
                 onClear={() => updateStop(stop.id, "")}
+                onFocus={() => setFocusedInputId(stop.id)}
               />
-              {showSuggestionsCities && (
+              {showSuggestionsCities && focusedInputId === stop.id && (
                 <InputSuggestions>
                   {filteredArray.map((item, index: number) => (
                     <button
