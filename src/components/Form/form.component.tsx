@@ -15,6 +15,7 @@ import {
 } from "./form.styles";
 import { transformedAppendixA } from "../../utils/transformDataAppendix";
 import { GlobalContext } from "../../context/GlobalContext";
+import { useNavigate } from "react-router-dom";
 
 export const FormComponent = () => {
   const { listOfFields } = useContext(GlobalContext);
@@ -22,6 +23,7 @@ export const FormComponent = () => {
   const [showSuggestionsCities, setShowSuggestionsCities] = useState(false);
   const [filterText, setFilterText] = useState("");
   const [focusedInputId, setFocusedInputId] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   const handleAddStop = () => {
     if (listOfFields.length === 5) {
@@ -98,7 +100,7 @@ export const FormComponent = () => {
           <AddButton onClick={() => handleAddStop()}>Add destination</AddButton>
         )}
       </FormContent>
-      <SubmitButtonArea>
+      <SubmitButtonArea onClick={() => navigate("/results")}>
         <SubmitButton disabled={true}>Submit</SubmitButton>
       </SubmitButtonArea>
     </Container>
