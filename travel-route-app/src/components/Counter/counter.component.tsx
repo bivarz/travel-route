@@ -34,7 +34,9 @@ export const Counter = () => {
           -
         </Button>
         <span>{count}</span>
-        <Button onClick={handleIncrement}>+</Button>
+        <Button disabled={count === 10} onClick={handleIncrement}>
+          +
+        </Button>
       </Content>
       <ErrorArea>{error && <ErrorMsg>Select passengers</ErrorMsg>}</ErrorArea>
     </Container>

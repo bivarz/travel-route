@@ -48,6 +48,10 @@ export const Button = styled.button`
   &:hover {
     background-color: #7786d2;
   }
+
+  &:disabled {
+    background-color: #e5e7eb;
+  }
 `;
 
 export const ErrorArea = styled.div`
