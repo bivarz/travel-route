@@ -1,6 +1,6 @@
 # Travel Route App with Vite
 
-![Travel Route](https://link.to.your.image)
+![Travel Route]
 
 Welcome to the Travel Route App repository! This app helps users plan their travel routes efficiently. Whether you're a globetrotter or planning a weekend getaway, this app has got you covered.
 
