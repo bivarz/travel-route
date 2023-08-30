@@ -100,7 +100,7 @@ export const FormComponent = () => {
           <AddButton onClick={() => handleAddStop()}>Add destination</AddButton>
         )}
       </FormContent>
-      <SubmitButtonArea onClick={() => navigate("/results")}>
+      <SubmitButtonArea onClick={() => navigate("/travel-route/results")}>
         <SubmitButton disabled={true}>Submit</SubmitButton>
       </SubmitButtonArea>
     </Container>
