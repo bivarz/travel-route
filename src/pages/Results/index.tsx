@@ -35,7 +35,7 @@ const Results: React.FC = () => {
           )}
         </DataResultsArea>
         <ButtonArea>
-          <Button onClick={() => navigate("/")}>Back</Button>
+          <Button onClick={() => navigate("/travel-route/")}>Back</Button>
         </ButtonArea>
       </Middle>
     </Container>
