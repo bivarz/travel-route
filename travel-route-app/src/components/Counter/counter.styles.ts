@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface StyledContentProps {
-  hasError: boolean;
+  $hasError: boolean;
 }
 
 export const Container = styled.div`
@@ -26,7 +26,7 @@ export const Content = styled.div<StyledContentProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid ${(props) => (props.hasError ? "#ff0000" : "#e5e7eb")};
+  border: 1px solid ${(props) => (props.$hasError ? "#ff0000" : "#e5e7eb")};
   padding: 5px 8px;
   border-radius: 8px;
   width: 120px;
@@ -48,6 +48,14 @@ export const Button = styled.button`
   &:hover {
     background-color: #7786d2;
   }
+
+  &:disabled {
+    background-color: #e5e7eb;
+  }
+`;
+
+export const ErrorArea = styled.div`
+  height: 15px;
 `;
 
 export const ErrorMsg = styled.p`

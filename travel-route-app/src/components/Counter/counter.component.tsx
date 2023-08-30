@@ -1,12 +1,22 @@
 import { useState } from "react";
 
-import { Button, Container, Content, ErrorMsg, Title } from "./counter.styles";
+import {
+  Button,
+  Container,
+  Content,
+  ErrorArea,
+  ErrorMsg,
+  Title,
+} from "./counter.styles";
 
 export const Counter = () => {
   const [count, setCount] = useState<number>(0);
   const error = false;
 
   const handleIncrement = () => {
+    if (count === 10) {
+      return;
+    }
     setCount(count + 1);
   };
 
@@ -19,14 +29,16 @@ export const Counter = () => {
   return (
     <Container>
       <Title>Passengers</Title>
-      <Content hasError={error}>
+      <Content $hasError={error}>
         <Button onClick={handleDecrement} disabled={count === 0}>
           -
         </Button>
         <span>{count}</span>
-        <Button onClick={handleIncrement}>+</Button>
+        <Button disabled={count === 10} onClick={handleIncrement}>
+          +
+        </Button>
       </Content>
-      <ErrorMsg>Select passengers</ErrorMsg>
+      <ErrorArea>{error && <ErrorMsg>Select passengers</ErrorMsg>}</ErrorArea>
     </Container>
   );
 };

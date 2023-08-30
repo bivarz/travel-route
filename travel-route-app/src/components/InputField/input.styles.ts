@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface InputProps {
-  fullWidth: boolean;
+  $fullwidth: boolean;
 }
 
 export const Container = styled.div`
@@ -15,6 +15,7 @@ export const Content = styled.div`
 `;
 
 export const InputFieldArea = styled.div`
+  position: relative;
   input:focus {
     outline: none;
     border: 1px solid #c7d1f4;
@@ -33,9 +34,15 @@ export const Input = styled.input<InputProps>`
   font-family: Inter;
   border-radius: 6px;
   height: 32px;
-  width: ${(props) => (props.fullWidth ? "100%" : "132px")};
+  width: ${(props) => (props.$fullwidth ? "320px" : "132px")};
   border: 1px solid #e5e7eb;
   color: #374151;
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0px;
 
   &.date {
     font-family: Inter;
@@ -46,6 +53,14 @@ export const Input = styled.input<InputProps>`
     color: #374151;
     word-spacing: 2px;
   }
+`;
+
+export const ClearInputButton = styled.button`
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  top: 5px;
+  right: -10px;
 `;
 
 export const ErrorMsg = styled.p`

@@ -1,4 +1,6 @@
+import React from "react";
 import {
+  ClearInputButton,
   Container,
   Content,
   ErrorMsg,
@@ -7,6 +9,7 @@ import {
   Label,
 } from "./input.styles";
 import { CustomInputTypes } from "./input.types";
+import CancelXIcon from "../../assets/icons/x-icon.svg";
 
 export const CustomInput = ({
   label,
@@ -14,12 +17,14 @@ export const CustomInput = ({
   value,
   onChange,
   className,
-  key,
-  fullWidth = true,
+  $fullwidth = true,
   type = "text",
+  showClearButton,
+  onClear,
+  onBlur,
 }: CustomInputTypes) => {
   return (
-    <>
+    <React.Fragment>
       {type === "text" && (
         <Container>
           <Content className={className}>
@@ -29,27 +34,31 @@ export const CustomInput = ({
                 type="text"
                 value={value}
                 onChange={onChange}
-                key={key}
-                fullWidth={fullWidth}
-              />
+                $fullwidth={$fullwidth}
+              ></Input>
+              {showClearButton && (
+                <ClearInputButton onClick={onClear}>
+                  <img src={CancelXIcon} alt="" />
+                </ClearInputButton>
+              )}
             </InputFieldArea>
             <ErrorMsg>{errorMsg}</ErrorMsg>
           </Content>
         </Container>
       )}
       {type === "date-field" && (
-        <>
+        <React.Fragment>
           <Label>{label}</Label>
           <Input
             type="text"
             value={value}
             onChange={onChange}
-            key={key}
-            fullWidth={fullWidth}
+            $fullwidth={$fullwidth}
             className="date"
+            onBlur={onBlur}
           />
-        </>
+        </React.Fragment>
       )}
-    </>
+    </React.Fragment>
   );
 };
