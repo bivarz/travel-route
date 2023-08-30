@@ -10,8 +10,8 @@ export const Select = ({ data, handleClick }: SelectProps) => {
             key={index}
             onClick={() => {
               typeof item === "object"
-                ? handleClick(item?.label)
-                : handleClick(item);
+                ? handleClick(item?.label.toString(), index)
+                : handleClick(item.toString(), index);
             }}
           >
             {typeof item === "object" ? item.label : item}

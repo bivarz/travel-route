@@ -5,5 +5,5 @@ export type SelectValueType =
 
 export type SelectProps = {
   data: SelectValueType[];
-  handleClick: (value: string | number) => void;
+  handleClick: (value: string, index: number) => void;
 };

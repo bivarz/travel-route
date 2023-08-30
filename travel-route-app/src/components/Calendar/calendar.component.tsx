@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { CustomInput } from "../InputField/index";
 import "react-calendar/dist/Calendar.css";
 import ArrowLeft from "../../assets/icons/arrow-left-icon.svg";
@@ -31,28 +31,27 @@ type CalendarValues = {
 };
 
 export const CalendarCustom = () => {
-  const [value, onChange] = useState<Date>(new Date());
+  const [calendarValue, setCalendarValue] = useState<Date | null>(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const [showMonthList, setShowMonthList] = useState(false);
   const [showYearList, setShowYearList] = useState(false);
   const [pickDateValues, setPickDateValues] = useState<CalendarValues[]>([
-    { year: 2023, month: "aug", day: 28 },
+    { year: 2023, month: "Aug", day: 28 },
   ]);
   const inputRef = useRef<HTMLInputElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
-
-  const handleDocumentClick = (event: MouseEvent) => {
-    if (
-      inputRef.current &&
-      inputRef.current !== (event.target as HTMLInputElement) &&
-      calendarRef.current &&
-      !calendarRef.current.contains(event.target as Node)
-    ) {
-      setShowCalendar(false);
-    }
-  };
-
   const [date, setDate] = useState<string>("");
+
+  // const handleDocumentClick = (event: MouseEvent) => {
+  //   if (
+  //     inputRef.current &&
+  //     inputRef.current !== (event.target as HTMLInputElement) &&
+  //     calendarRef.current &&
+  //     !calendarRef.current.contains(event.target as Node)
+  //   ) {
+  //     setShowCalendar(false);
+  //   }
+  // };
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -77,18 +76,72 @@ export const CalendarCustom = () => {
     }
   };
 
-  const handleClickPickMonth = (monthValue: string | number) => {
-    const newMonth = { ...pickDateValues, month: monthValue };
-    setPickDateValues(newMonth);
+  const handleClickPickMonth = (i: number, monthValue: string) => {
+    setPickDateValues((prevValues) =>
+      prevValues.map((item, index) =>
+        index === i ? { ...item, month: monthValue } : item
+      )
+    );
     setShowMonthList(false);
   };
 
-  useEffect(() => {
-    document.addEventListener("click", handleDocumentClick);
-    return () => {
-      document.removeEventListener("click", handleDocumentClick);
+  const handleClickPickYear = (value: string) => {
+    setPickDateValues((prevValues) =>
+      prevValues.map((item, index) =>
+        index === 0 ? { ...item, year: parseInt(value) } : item
+      )
+    );
+    setShowYearList(false);
+  };
+
+  const updatePickDateValues = (
+    newDay: number,
+    newMonth: string,
+    newYear: number
+  ) => {
+    setPickDateValues((prevValues) =>
+      prevValues.map((item, index) =>
+        index === 0 ? { day: newDay, month: newMonth, year: newYear } : item
+      )
+    );
+  };
+
+  const handlePrevMonth = () => {
+    const prevMonth = new Date(calendarValue!);
+    prevMonth.setMonth(prevMonth.getMonth() - 1);
+    setCalendarValue(prevMonth);
+    console.log(prevMonth);
+
+    const newMonthInfo = abbrMonthsOfYear[prevMonth.getMonth()];
+    const newMonth = newMonthInfo.label;
+    const newYear = prevMonth.getFullYear();
+    const day = prevMonth.getDay();
+    updatePickDateValues(day, newMonth, newYear);
+  };
+
+  const handleNextMonth = () => {
+    const nextMonth = new Date(calendarValue!);
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    setCalendarValue(nextMonth);
+
+    const newMonthInfo = abbrMonthsOfYear[nextMonth.getMonth()];
+    const newMonth = newMonthInfo.label;
+    const newYear = nextMonth.getFullYear();
+    const day = nextMonth.getDay();
+    updatePickDateValues(day, newMonth, newYear);
+  };
+
+  const handleDayClick = (date: Date) => {
+    const formatDateObject = (date: Date): CalendarValues => {
+      const year = date.getFullYear();
+      const month = abbrMonthsOfYear[date.getMonth()].label;
+      const day = date.getDate();
+      return { year, month, day };
     };
-  }, []);
+    const formattedDate = formatDateObject(date);
+    setPickDateValues([formattedDate]);
+    setCalendarValue(date);
+  };
 
   return (
     <Container>
@@ -109,7 +162,7 @@ export const CalendarCustom = () => {
           <CalendarContainer ref={calendarRef}>
             <FloatingBox>
               <Navigation>
-                <NavigationButton>
+                <NavigationButton onClick={() => handlePrevMonth()}>
                   <img src={ArrowLeft} alt="left" />
                 </NavigationButton>
                 <SelectDateArea>
@@ -117,33 +170,32 @@ export const CalendarCustom = () => {
                     <SelectMonth
                       onClick={() => setShowMonthList(!showMonthList)}
                     >
-                      Aug
+                      {pickDateValues[0].month}
                     </SelectMonth>
                     {showMonthList && (
                       <Select
                         data={abbrMonthsOfYear}
-                        handleClick={() => ""}
-                        // handleClick={(value: string) =>
-                        //   handleClickPickMonth(value)
-                        // }
+                        handleClick={(value: string) =>
+                          handleClickPickMonth(0, value)
+                        }
                       />
                     )}
                   </MonthArea>
                   <YearArea>
                     <SelectYear onClick={() => setShowYearList(!showYearList)}>
-                      2023
+                      {pickDateValues[0].year}
                     </SelectYear>
                     {showYearList && (
                       <Select
                         data={years}
-                        handleClick={(value: string | number) =>
-                          handleClickPickMonth(value)
+                        handleClick={(value: string) =>
+                          handleClickPickYear(value)
                         }
                       />
                     )}
                   </YearArea>
                 </SelectDateArea>
-                <NavigationButton>
+                <NavigationButton onClick={() => handleNextMonth()}>
                   <img src={ArrowRight} alt="right" />
                 </NavigationButton>
               </Navigation>
@@ -155,8 +207,10 @@ export const CalendarCustom = () => {
                 </Days>
                 <StyledCalendar
                   className="calendar"
-                  onChange={(newValue) => onChange(newValue as Date)}
-                  value={value}
+                  onChange={() => ""}
+                  value={calendarValue}
+                  onClickDay={(value) => handleDayClick(value)}
+                  defaultValue={calendarValue}
                 />
               </WeekDays>
             </FloatingBox>
