@@ -1,6 +1,7 @@
 # Travel Route App with Vite!
 
-Travel Route App
+Travel Route App 
+[Check it out!](https://bivarz.github.io/travel-route/)
 
 Welcome to the Travel Route App repository! This app helps users plan their travel routes efficiently. Whether you're a globetrotter or planning a weekend getaway, this app has got you covered.
 
@@ -44,8 +45,8 @@ To start the development server:
 
 ## Screenshots
 
-![Screenshot da Página Inicial](https://github.com/bivarz/travel-route/raw/main/travel-route-app/src/assets/screenshots/home-page.png)
-![Screenshot da Página Inicial](https://github.com/bivarz/travel-route/raw/main/travel-route-app/src/assets/screenshots/results-page.png)
+![Screenshot da Página Inicial](https://github.com/bivarz/travel-route/blob/main/src/assets/screenshots/home-page.png)
+![Screenshot da Página Inicial](https://github.com/bivarz/travel-route/blob/main/src/assets/screenshots/results-page.png)
 
 ## Contributing
 
