@@ -192,28 +192,6 @@ export const CalendarCustom = () => {
     }
   };
 
-  // const handlePrevMonth = () => {
-  //   if (selectedMonthIndex > 0) {
-  //     setSelectedMonthIndex(selectedMonthIndex - 1);
-  //   }
-  //   if (calendarValue instanceof Date) {
-  //     const prevMonth = new Date(calendarValue);
-  //     prevMonth.setMonth(prevMonth.getMonth() - 1);
-  //     setCalendarValue(prevMonth);
-  //   }
-  // };
-
-  // const handleNextMonth = () => {
-  //   if (selectedMonthIndex < selectValues.length - 1) {
-  //     setSelectedMonthIndex(selectedMonthIndex + 1);
-  //   }
-  //   if (calendarValue instanceof Date) {
-  //     const nextMonth = new Date(calendarValue);
-  //     nextMonth.setMonth(nextMonth.getMonth() + 1);
-  //     setCalendarValue(nextMonth);
-  //   }
-  // };
-
   const updateCalendarAndPickDateValues = (value: Value) => {
     if (value instanceof Date) {
       setCalendarValue(value);
@@ -242,22 +220,6 @@ export const CalendarCustom = () => {
       ]);
     }
   };
-
-  // useEffect(() => {
-  //   if (calendarValue instanceof Date) {
-  //     const currentMonth = calendarValue.getMonth();
-  //     const currentYear = calendarValue.getFullYear();
-
-  //     if (currentMonth === 11 || currentMonth === 0) {
-  //       setPickDateValues((prevValues) =>
-  //         prevValues.map((item) => ({
-  //           ...item,
-  //           year: currentYear,
-  //         }))
-  //       );
-  //     }
-  //   }
-  // }, [calendarValue]);
 
   return (
     <Container>
