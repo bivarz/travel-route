@@ -26,21 +26,37 @@ import {
 type CalendarValues = {
   day: number;
   month: string;
+  monthNumber: number;
   year: number;
   fullDate?: string;
 };
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const CalendarCustom = () => {
-  const [calendarValue, setCalendarValue] = useState<Date | null>(new Date());
+  const [calendarValue, setCalendarValue] = useState<Value>(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const [showMonthList, setShowMonthList] = useState(false);
   const [showYearList, setShowYearList] = useState(false);
   const [pickDateValues, setPickDateValues] = useState<CalendarValues[]>([
-    { year: 2023, month: "Aug", day: 28 },
+    { year: 2023, month: "Aug", day: 28, monthNumber: 7 },
   ]);
+  const selectValues = abbrMonthsOfYear.map((month) => month.label);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
   const [date, setDate] = useState<string>("");
+
+  const [selectedMonthIndex, setSelectedMonthIndex] = useState<number>(() => {
+    const currentMonthIndex = new Date().getMonth();
+    return currentMonthIndex;
+  });
+
+  const [selectedYear, setSelectedYear] = useState<number>(() => {
+    const currentYear = new Date().getFullYear();
+    return currentYear;
+  });
 
   // const handleDocumentClick = (event: MouseEvent) => {
   //   if (
@@ -77,71 +93,171 @@ export const CalendarCustom = () => {
   };
 
   const handleClickPickMonth = (i: number, monthValue: string) => {
+    const findMonthIndex = (monthValue: string) => {
+      return abbrMonthsOfYear.findIndex((month) => month.label === monthValue);
+    };
+    const mi = findMonthIndex(monthValue);
+    setCalendarValue(new Date(selectedYear, selectedMonthIndex));
     setPickDateValues((prevValues) =>
       prevValues.map((item, index) =>
         index === i ? { ...item, month: monthValue } : item
       )
     );
+    setCalendarValue(new Date(selectedYear, mi));
+    setSelectedMonthIndex(mi);
     setShowMonthList(false);
   };
 
+  console.log(
+    "pick:",
+    pickDateValues[0].month,
+    "selec>",
+    selectValues[selectedMonthIndex],
+    calendarValue
+  );
+
   const handleClickPickYear = (value: string) => {
+    setSelectedYear(parseInt(value));
+
     setPickDateValues((prevValues) =>
       prevValues.map((item, index) =>
         index === 0 ? { ...item, year: parseInt(value) } : item
       )
     );
+    setCalendarValue(new Date(parseInt(value), selectedMonthIndex));
     setShowYearList(false);
   };
 
-  const updatePickDateValues = (
-    newDay: number,
-    newMonth: string,
-    newYear: number
-  ) => {
+  const handlePrevMonth = () => {
+    let newMonthIndex = selectedMonthIndex;
+    let newYear = selectedYear;
+
+    if (newMonthIndex === 0) {
+      newMonthIndex = 11;
+      newYear -= 1;
+    } else {
+      newMonthIndex -= 1;
+    }
+
+    setSelectedMonthIndex(newMonthIndex);
+    setSelectedYear(newYear);
+
     setPickDateValues((prevValues) =>
-      prevValues.map((item, index) =>
-        index === 0 ? { day: newDay, month: newMonth, year: newYear } : item
+      prevValues.map((item) =>
+        item.year !== newYear
+          ? {
+              ...item,
+              year: selectedYear,
+            }
+          : item
       )
     );
-  };
 
-  const handlePrevMonth = () => {
-    const prevMonth = new Date(calendarValue!);
-    prevMonth.setMonth(prevMonth.getMonth() - 1);
-    setCalendarValue(prevMonth);
-    console.log(prevMonth);
-
-    const newMonthInfo = abbrMonthsOfYear[prevMonth.getMonth()];
-    const newMonth = newMonthInfo.label;
-    const newYear = prevMonth.getFullYear();
-    const day = prevMonth.getDay();
-    updatePickDateValues(day, newMonth, newYear);
+    if (calendarValue instanceof Date) {
+      const prevMonth = new Date(calendarValue);
+      prevMonth.setMonth(prevMonth.getMonth() - 1);
+      setCalendarValue(prevMonth);
+    }
   };
 
   const handleNextMonth = () => {
-    const nextMonth = new Date(calendarValue!);
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
-    setCalendarValue(nextMonth);
+    let newMonthIndex = selectedMonthIndex;
+    let newYear = selectedYear;
 
-    const newMonthInfo = abbrMonthsOfYear[nextMonth.getMonth()];
-    const newMonth = newMonthInfo.label;
-    const newYear = nextMonth.getFullYear();
-    const day = nextMonth.getDay();
-    updatePickDateValues(day, newMonth, newYear);
+    if (newMonthIndex === 11) {
+      newMonthIndex = 0;
+      newYear += 1;
+    } else {
+      newMonthIndex += 1;
+    }
+
+    setSelectedMonthIndex(newMonthIndex);
+    setSelectedYear(newYear);
+
+    setPickDateValues((prevValues) =>
+      prevValues.map((item) =>
+        item.year !== newYear
+          ? {
+              ...item,
+              year: selectedYear,
+            }
+          : item
+      )
+    );
+
+    if (calendarValue instanceof Date) {
+      const nextMonth = new Date(calendarValue);
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      setCalendarValue(nextMonth);
+    }
   };
 
-  const handleDayClick = (date: Date) => {
-    const formatDateObject = (date: Date): CalendarValues => {
-      const year = date.getFullYear();
-      const month = abbrMonthsOfYear[date.getMonth()].label;
-      const day = date.getDate();
-      return { year, month, day };
-    };
-    const formattedDate = formatDateObject(date);
-    setPickDateValues([formattedDate]);
-    setCalendarValue(date);
+  // const handlePrevMonth = () => {
+  //   if (selectedMonthIndex > 0) {
+  //     setSelectedMonthIndex(selectedMonthIndex - 1);
+  //   }
+  //   if (calendarValue instanceof Date) {
+  //     const prevMonth = new Date(calendarValue);
+  //     prevMonth.setMonth(prevMonth.getMonth() - 1);
+  //     setCalendarValue(prevMonth);
+  //   }
+  // };
+
+  // const handleNextMonth = () => {
+  //   if (selectedMonthIndex < selectValues.length - 1) {
+  //     setSelectedMonthIndex(selectedMonthIndex + 1);
+  //   }
+  //   if (calendarValue instanceof Date) {
+  //     const nextMonth = new Date(calendarValue);
+  //     nextMonth.setMonth(nextMonth.getMonth() + 1);
+  //     setCalendarValue(nextMonth);
+  //   }
+  // };
+
+  const updateCalendarAndPickDateValues = (value: Value) => {
+    if (value instanceof Date) {
+      setCalendarValue(value);
+      setPickDateValues([
+        {
+          day: value.getDate(),
+          month: abbrMonthsOfYear[value.getMonth()].label,
+          monthNumber: value.getMonth(),
+          year: value.getFullYear(),
+        },
+      ]);
+    } else if (
+      Array.isArray(value) &&
+      value.length > 0 &&
+      value[0] instanceof Date
+    ) {
+      const startDate = value[0];
+      setCalendarValue(startDate);
+      setPickDateValues([
+        {
+          day: startDate.getDate(),
+          month: abbrMonthsOfYear[startDate.getMonth()].label,
+          monthNumber: startDate.getMonth(),
+          year: startDate.getFullYear(),
+        },
+      ]);
+    }
   };
+
+  // useEffect(() => {
+  //   if (calendarValue instanceof Date) {
+  //     const currentMonth = calendarValue.getMonth();
+  //     const currentYear = calendarValue.getFullYear();
+
+  //     if (currentMonth === 11 || currentMonth === 0) {
+  //       setPickDateValues((prevValues) =>
+  //         prevValues.map((item) => ({
+  //           ...item,
+  //           year: currentYear,
+  //         }))
+  //       );
+  //     }
+  //   }
+  // }, [calendarValue]);
 
   return (
     <Container>
@@ -170,7 +286,7 @@ export const CalendarCustom = () => {
                     <SelectMonth
                       onClick={() => setShowMonthList(!showMonthList)}
                     >
-                      {pickDateValues[0].month}
+                      {selectValues[selectedMonthIndex]}
                     </SelectMonth>
                     {showMonthList && (
                       <Select
@@ -207,10 +323,15 @@ export const CalendarCustom = () => {
                 </Days>
                 <StyledCalendar
                   className="calendar"
-                  onChange={() => ""}
-                  value={calendarValue}
-                  onClickDay={(value) => handleDayClick(value)}
+                  onChange={(value) => updateCalendarAndPickDateValues(value)}
                   defaultValue={calendarValue}
+                  onClickDay={(value) => setCalendarValue(value)}
+                  activeStartDate={
+                    calendarValue instanceof Date ? calendarValue : undefined
+                  }
+                  onActiveStartDateChange={(value) => {
+                    setCalendarValue(value.activeStartDate);
+                  }}
                 />
               </WeekDays>
             </FloatingBox>
