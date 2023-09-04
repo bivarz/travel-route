@@ -72,6 +72,7 @@ export const FormComponent = () => {
                 showClearButton={stop.value !== ""}
                 onClear={() => updateStop(stop.id, "")}
                 onFocus={() => setFocusedInputId(stop.id)}
+                onBlur={() => setShowSuggestionsCities(false)}
               />
               {showSuggestionsCities && focusedInputId === stop.id && (
                 <InputSuggestions>

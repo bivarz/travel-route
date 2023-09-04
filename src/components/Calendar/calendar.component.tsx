@@ -60,17 +60,6 @@ export const CalendarCustom = () => {
     return currentYear;
   });
 
-  // const handleDocumentClick = (event: MouseEvent) => {
-  //   if (
-  //     inputRef.current &&
-  //     inputRef.current !== (event.target as HTMLInputElement) &&
-  //     calendarRef.current &&
-  //     !calendarRef.current.contains(event.target as Node)
-  //   ) {
-  //     setShowCalendar(false);
-  //   }
-  // };
-
   useEffect(() => {
     const initialDate = new Date();
     const numericValue = formatDateToDDMMYYYY(initialDate)
@@ -87,6 +76,25 @@ export const CalendarCustom = () => {
       setDate(formattedValue);
     }
   }, []);
+
+  useEffect(() => {
+    const handleDocumentClick = (event: MouseEvent) => {
+      if (
+        inputRef.current &&
+        inputRef.current !== event.target &&
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
+      ) {
+        setShowCalendar(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentClick);
+    };
+  }, [inputRef, calendarRef, setShowCalendar]);
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -125,6 +133,7 @@ export const CalendarCustom = () => {
     );
     setCalendarValue(new Date(selectedYear, mi));
     setSelectedMonthIndex(mi);
+    setDate(formatDateToDDMMYYYY(new Date(selectedYear, mi)));
     setShowMonthList(false);
   };
 
@@ -137,6 +146,9 @@ export const CalendarCustom = () => {
       )
     );
     setCalendarValue(new Date(parseInt(value), selectedMonthIndex));
+    setDate(
+      formatDateToDDMMYYYY(new Date(parseInt(value), selectedMonthIndex))
+    );
     setShowYearList(false);
   };
 
@@ -233,6 +245,11 @@ export const CalendarCustom = () => {
     }
   };
 
+  const handlePickDate = (value: Date) => {
+    setCalendarValue(value);
+    setDate(formatDateToDDMMYYYY(value));
+  };
+
   return (
     <Container>
       <Content>
@@ -247,6 +264,7 @@ export const CalendarCustom = () => {
             value={date}
             onChange={handleDateChange}
             errorMsg={dateError}
+            readOnly={true}
           />
         </InputContainer>
         {showCalendar && (
@@ -300,7 +318,7 @@ export const CalendarCustom = () => {
                   className="calendar"
                   onChange={(value) => updateCalendarAndPickDateValues(value)}
                   defaultValue={calendarValue}
-                  onClickDay={(value) => setCalendarValue(value)}
+                  onClickDay={(value) => handlePickDate(value)}
                   activeStartDate={
                     calendarValue instanceof Date ? calendarValue : undefined
                   }
