@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CustomInput } from "../InputField/index";
 import "react-calendar/dist/Calendar.css";
 import ArrowLeft from "../../assets/icons/arrow-left-icon.svg";
@@ -22,36 +22,79 @@ import {
   WeekDays,
   YearArea,
 } from "./calendar.styles";
+import { formatDateToDDMMYYYY } from "../../utils/formatDate";
 
 type CalendarValues = {
   day: number;
   month: string;
+  monthNumber: number;
   year: number;
   fullDate?: string;
 };
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const CalendarCustom = () => {
-  const [calendarValue, setCalendarValue] = useState<Date | null>(new Date());
+  const [calendarValue, setCalendarValue] = useState<Value>(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const [showMonthList, setShowMonthList] = useState(false);
   const [showYearList, setShowYearList] = useState(false);
   const [pickDateValues, setPickDateValues] = useState<CalendarValues[]>([
-    { year: 2023, month: "Aug", day: 28 },
+    { year: 2023, month: "Aug", day: 28, monthNumber: 7 },
   ]);
+  const selectValues = abbrMonthsOfYear.map((month) => month.label);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
   const [date, setDate] = useState<string>("");
+  const [dateError, setDateError] = useState<string | null>(null);
 
-  // const handleDocumentClick = (event: MouseEvent) => {
-  //   if (
-  //     inputRef.current &&
-  //     inputRef.current !== (event.target as HTMLInputElement) &&
-  //     calendarRef.current &&
-  //     !calendarRef.current.contains(event.target as Node)
-  //   ) {
-  //     setShowCalendar(false);
-  //   }
-  // };
+  const [selectedMonthIndex, setSelectedMonthIndex] = useState<number>(() => {
+    const currentMonthIndex = new Date().getMonth();
+    return currentMonthIndex;
+  });
+
+  const [selectedYear, setSelectedYear] = useState<number>(() => {
+    const currentYear = new Date().getFullYear();
+    return currentYear;
+  });
+
+  useEffect(() => {
+    const initialDate = new Date();
+    const numericValue = formatDateToDDMMYYYY(initialDate)
+      .toString()
+      .replace(/\D/g, "");
+    if (numericValue.length <= 8) {
+      let formattedValue = "";
+      for (let i = 0; i < numericValue.length; i++) {
+        if (i === 2 || i === 4) {
+          formattedValue += "/";
+        }
+        formattedValue += numericValue[i];
+      }
+      setDate(formattedValue);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleDocumentClick = (event: MouseEvent) => {
+      if (
+        inputRef.current &&
+        inputRef.current !== event.target &&
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
+      ) {
+        setShowCalendar(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentClick);
+    };
+  }, [inputRef, calendarRef, setShowCalendar]);
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -74,73 +117,137 @@ export const CalendarCustom = () => {
         setDate(numericValue.substring(0, 2) + "/" + numericValue.substring(4));
       }
     }
+    setDateError("");
   };
 
   const handleClickPickMonth = (i: number, monthValue: string) => {
+    const findMonthIndex = (monthValue: string) => {
+      return abbrMonthsOfYear.findIndex((month) => month.label === monthValue);
+    };
+    const mi = findMonthIndex(monthValue);
+    setCalendarValue(new Date(selectedYear, selectedMonthIndex));
     setPickDateValues((prevValues) =>
       prevValues.map((item, index) =>
         index === i ? { ...item, month: monthValue } : item
       )
     );
+    setCalendarValue(new Date(selectedYear, mi));
+    setSelectedMonthIndex(mi);
+    setDate(formatDateToDDMMYYYY(new Date(selectedYear, mi)));
     setShowMonthList(false);
   };
 
   const handleClickPickYear = (value: string) => {
+    setSelectedYear(parseInt(value));
+
     setPickDateValues((prevValues) =>
       prevValues.map((item, index) =>
         index === 0 ? { ...item, year: parseInt(value) } : item
       )
     );
+    setCalendarValue(new Date(parseInt(value), selectedMonthIndex));
+    setDate(
+      formatDateToDDMMYYYY(new Date(parseInt(value), selectedMonthIndex))
+    );
     setShowYearList(false);
   };
 
-  const updatePickDateValues = (
-    newDay: number,
-    newMonth: string,
-    newYear: number
-  ) => {
+  const handlePrevMonth = () => {
+    let newMonthIndex = selectedMonthIndex;
+    let newYear = selectedYear;
+
+    if (newMonthIndex === 0) {
+      newMonthIndex = 11;
+      newYear -= 1;
+    } else {
+      newMonthIndex -= 1;
+    }
+
+    setSelectedMonthIndex(newMonthIndex);
+    setSelectedYear(newYear);
+
     setPickDateValues((prevValues) =>
-      prevValues.map((item, index) =>
-        index === 0 ? { day: newDay, month: newMonth, year: newYear } : item
+      prevValues.map((item) =>
+        item.year !== newYear
+          ? {
+              ...item,
+              year: selectedYear,
+            }
+          : item
       )
     );
-  };
 
-  const handlePrevMonth = () => {
-    const prevMonth = new Date(calendarValue!);
-    prevMonth.setMonth(prevMonth.getMonth() - 1);
-    setCalendarValue(prevMonth);
-    console.log(prevMonth);
-
-    const newMonthInfo = abbrMonthsOfYear[prevMonth.getMonth()];
-    const newMonth = newMonthInfo.label;
-    const newYear = prevMonth.getFullYear();
-    const day = prevMonth.getDay();
-    updatePickDateValues(day, newMonth, newYear);
+    if (calendarValue instanceof Date) {
+      const prevMonth = new Date(calendarValue);
+      prevMonth.setMonth(prevMonth.getMonth() - 1);
+      setCalendarValue(prevMonth);
+    }
   };
 
   const handleNextMonth = () => {
-    const nextMonth = new Date(calendarValue!);
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
-    setCalendarValue(nextMonth);
+    let newMonthIndex = selectedMonthIndex;
+    let newYear = selectedYear;
 
-    const newMonthInfo = abbrMonthsOfYear[nextMonth.getMonth()];
-    const newMonth = newMonthInfo.label;
-    const newYear = nextMonth.getFullYear();
-    const day = nextMonth.getDay();
-    updatePickDateValues(day, newMonth, newYear);
+    if (newMonthIndex === 11) {
+      newMonthIndex = 0;
+      newYear += 1;
+    } else {
+      newMonthIndex += 1;
+    }
+
+    setSelectedMonthIndex(newMonthIndex);
+    setSelectedYear(newYear);
+
+    setPickDateValues((prevValues) =>
+      prevValues.map((item) =>
+        item.year !== newYear
+          ? {
+              ...item,
+              year: selectedYear,
+            }
+          : item
+      )
+    );
+
+    if (calendarValue instanceof Date) {
+      const nextMonth = new Date(calendarValue);
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      setCalendarValue(nextMonth);
+    }
   };
 
-  const handleDayClick = (date: Date) => {
-    const formatDateObject = (date: Date): CalendarValues => {
-      const year = date.getFullYear();
-      const month = abbrMonthsOfYear[date.getMonth()].label;
-      const day = date.getDate();
-      return { year, month, day };
-    };
-    const formattedDate = formatDateObject(date);
-    setPickDateValues([formattedDate]);
-    setCalendarValue(date);
+  const updateCalendarAndPickDateValues = (value: Value) => {
+    if (value instanceof Date) {
+      setCalendarValue(value);
+      setPickDateValues([
+        {
+          day: value.getDate(),
+          month: abbrMonthsOfYear[value.getMonth()].label,
+          monthNumber: value.getMonth(),
+          year: value.getFullYear(),
+        },
+      ]);
+    } else if (
+      Array.isArray(value) &&
+      value.length > 0 &&
+      value[0] instanceof Date
+    ) {
+      const startDate = value[0];
+      setCalendarValue(startDate);
+      setPickDateValues([
+        {
+          day: startDate.getDate(),
+          month: abbrMonthsOfYear[startDate.getMonth()].label,
+          monthNumber: startDate.getMonth(),
+          year: startDate.getFullYear(),
+        },
+      ]);
+    }
+  };
+
+  const handlePickDate = (value: Date) => {
+    setCalendarValue(value);
+    setDate(formatDateToDDMMYYYY(value));
   };
 
   return (
@@ -156,6 +263,8 @@ export const CalendarCustom = () => {
             type="date-field"
             value={date}
             onChange={handleDateChange}
+            errorMsg={dateError}
+            readOnly={true}
           />
         </InputContainer>
         {showCalendar && (
@@ -170,7 +279,7 @@ export const CalendarCustom = () => {
                     <SelectMonth
                       onClick={() => setShowMonthList(!showMonthList)}
                     >
-                      {pickDateValues[0].month}
+                      {selectValues[selectedMonthIndex]}
                     </SelectMonth>
                     {showMonthList && (
                       <Select
@@ -207,10 +316,15 @@ export const CalendarCustom = () => {
                 </Days>
                 <StyledCalendar
                   className="calendar"
-                  onChange={() => ""}
-                  value={calendarValue}
-                  onClickDay={(value) => handleDayClick(value)}
+                  onChange={(value) => updateCalendarAndPickDateValues(value)}
                   defaultValue={calendarValue}
+                  onClickDay={(value) => handlePickDate(value)}
+                  activeStartDate={
+                    calendarValue instanceof Date ? calendarValue : undefined
+                  }
+                  onActiveStartDateChange={(value) => {
+                    setCalendarValue(value.activeStartDate);
+                  }}
                 />
               </WeekDays>
             </FloatingBox>
