@@ -2,7 +2,7 @@ import { ChangeEventHandler } from "react";
 
 export interface CustomInputTypes {
   label: string;
-  errorMsg?: string;
+  errorMsg?: string | null;
   index?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
@@ -14,4 +14,5 @@ export interface CustomInputTypes {
   onClear?: () => void;
   onBlur?: () => void;
   onFocus?: () => void;
+  readOnly?: boolean;
 }

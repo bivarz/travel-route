@@ -23,6 +23,7 @@ export const CustomInput = ({
   onClear,
   onBlur,
   onFocus,
+  readOnly,
 }: CustomInputTypes) => {
   return (
     <React.Fragment>
@@ -52,6 +53,7 @@ export const CustomInput = ({
       {type === "date-field" && (
         <React.Fragment>
           <Label>{label}</Label>
+          {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
           <Input
             type="text"
             value={value}
@@ -59,6 +61,7 @@ export const CustomInput = ({
             $fullwidth={$fullwidth}
             className="date"
             onBlur={onBlur}
+            readOnly={readOnly}
           />
         </React.Fragment>
       )}

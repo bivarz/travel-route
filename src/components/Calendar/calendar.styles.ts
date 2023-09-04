@@ -55,16 +55,16 @@ export const FloatingBox = styled.div`
   position: absolute;
   top: 0px;
   width: 221px;
-  height: 221px;
+  height: 210px;
   border: 1px solid #c7d1f4;
-  display: flex;
-  justify-content: center;
   border-radius: 8px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: stretch;
+  padding-top: 20px;
 
   &::before {
     content: "";
