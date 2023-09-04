@@ -2,7 +2,7 @@ import { ChangeEventHandler } from "react";
 
 export interface CustomInputTypes {
   label: string;
-  errorMsg?: string;
+  errorMsg?: string | null;
   index?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;

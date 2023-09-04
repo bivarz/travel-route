@@ -52,6 +52,7 @@ export const CustomInput = ({
       {type === "date-field" && (
         <React.Fragment>
           <Label>{label}</Label>
+          {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
           <Input
             type="text"
             value={value}

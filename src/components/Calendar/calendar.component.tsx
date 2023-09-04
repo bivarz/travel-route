@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CustomInput } from "../InputField/index";
 import "react-calendar/dist/Calendar.css";
 import ArrowLeft from "../../assets/icons/arrow-left-icon.svg";
@@ -22,6 +22,7 @@ import {
   WeekDays,
   YearArea,
 } from "./calendar.styles";
+import { formatDateToDDMMYYYY } from "../../utils/formatDate";
 
 type CalendarValues = {
   day: number;
@@ -47,6 +48,7 @@ export const CalendarCustom = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
   const [date, setDate] = useState<string>("");
+  const [dateError, setDateError] = useState<string | null>(null);
 
   const [selectedMonthIndex, setSelectedMonthIndex] = useState<number>(() => {
     const currentMonthIndex = new Date().getMonth();
@@ -69,6 +71,23 @@ export const CalendarCustom = () => {
   //   }
   // };
 
+  useEffect(() => {
+    const initialDate = new Date();
+    const numericValue = formatDateToDDMMYYYY(initialDate)
+      .toString()
+      .replace(/\D/g, "");
+    if (numericValue.length <= 8) {
+      let formattedValue = "";
+      for (let i = 0; i < numericValue.length; i++) {
+        if (i === 2 || i === 4) {
+          formattedValue += "/";
+        }
+        formattedValue += numericValue[i];
+      }
+      setDate(formattedValue);
+    }
+  }, []);
+
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     const numericValue = inputValue.replace(/\D/g, "");
@@ -90,6 +109,7 @@ export const CalendarCustom = () => {
         setDate(numericValue.substring(0, 2) + "/" + numericValue.substring(4));
       }
     }
+    setDateError("");
   };
 
   const handleClickPickMonth = (i: number, monthValue: string) => {
@@ -107,14 +127,6 @@ export const CalendarCustom = () => {
     setSelectedMonthIndex(mi);
     setShowMonthList(false);
   };
-
-  console.log(
-    "pick:",
-    pickDateValues[0].month,
-    "selec>",
-    selectValues[selectedMonthIndex],
-    calendarValue
-  );
 
   const handleClickPickYear = (value: string) => {
     setSelectedYear(parseInt(value));
@@ -234,6 +246,7 @@ export const CalendarCustom = () => {
             type="date-field"
             value={date}
             onChange={handleDateChange}
+            errorMsg={dateError}
           />
         </InputContainer>
         {showCalendar && (
