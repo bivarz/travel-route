@@ -16,6 +16,7 @@ import {
 import { transformedAppendixA } from "../../utils/transformDataAppendix";
 import { GlobalContext } from "../../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
+import { inputErrorMessages } from "../../utils/errorMessages";
 
 export const FormComponent = () => {
   const { listOfFields } = useContext(GlobalContext);
@@ -23,6 +24,10 @@ export const FormComponent = () => {
   const [showSuggestionsCities, setShowSuggestionsCities] = useState(false);
   const [filterText, setFilterText] = useState("");
   const [focusedInputId, setFocusedInputId] = useState<number | null>(null);
+
+  const [errorMessages, setErrorMessages] = useState<Array<string | null>>(
+    listOfFields.map(() => null)
+  );
   const navigate = useNavigate();
 
   const handleAddStop = () => {
@@ -56,6 +61,48 @@ export const FormComponent = () => {
     filterCitySuggestions(value);
   };
 
+  const handleBlur = (value: string | null, id: number) => {
+    setShowSuggestionsCities(false);
+    if (id === listOfFields?.[id - 1].id) {
+      if (listOfFields?.[0]?.value === "" && id !== 1) {
+        const newErrorMessages = [...errorMessages];
+        newErrorMessages[1] = inputErrorMessages.cityOfOrigin;
+        setFocusedInputId(id - 1);
+        const input = document?.getElementById("1");
+        input?.focus();
+        setErrorMessages(newErrorMessages);
+      } else if (value === null || value === "") {
+        if (id === 1) {
+          return;
+        }
+        const newErrorMessages = [...errorMessages];
+        newErrorMessages[id] = inputErrorMessages.emptyField;
+        setErrorMessages(newErrorMessages);
+      } else if (value === ("Fail" || "fail")) {
+        const newErrorMessages = [...errorMessages];
+        newErrorMessages[id] = inputErrorMessages.searchFail;
+        setErrorMessages(newErrorMessages);
+      } else if (
+        !filteredArray.some((item) => item.city.toLocaleLowerCase() === value)
+      ) {
+        const newErrorMessages = [...errorMessages];
+        newErrorMessages[id] = inputErrorMessages.wordNotMatch;
+        setErrorMessages(newErrorMessages);
+      } else {
+        const newErrorMessages = [...errorMessages];
+        newErrorMessages[id] = null;
+        setErrorMessages(newErrorMessages);
+      }
+    }
+  };
+
+  const handleFocus = (id: number) => {
+    setFocusedInputId(id);
+    const newErrorMessages = [...errorMessages];
+    newErrorMessages[id] = null;
+    setErrorMessages(newErrorMessages);
+  };
+
   return (
     <Container>
       <FormContent>
@@ -71,8 +118,10 @@ export const FormComponent = () => {
                 }}
                 showClearButton={stop.value !== ""}
                 onClear={() => updateStop(stop.id, "")}
-                onFocus={() => setFocusedInputId(stop.id)}
-                onBlur={() => setShowSuggestionsCities(false)}
+                onFocus={() => handleFocus(stop.id)}
+                onBlur={() => handleBlur(stop.value, stop.id)}
+                errorMsg={errorMessages[stop.id]}
+                id={`${stop?.id}`}
               />
               {showSuggestionsCities && focusedInputId === stop.id && (
                 <InputSuggestions>

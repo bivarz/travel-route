@@ -55,7 +55,7 @@ export const FloatingBox = styled.div`
   position: absolute;
   top: 0px;
   width: 221px;
-  height: 210px;
+  height: 221px;
   border: 1px solid #c7d1f4;
   border-radius: 8px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -64,7 +64,7 @@ export const FloatingBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: stretch;
-  padding-top: 20px;
+  padding-top: 10px;
 
   &::before {
     content: "";
@@ -210,6 +210,10 @@ export const StyledCalendar = styled(Calendar)`
 
       &.react-calendar__tile--active {
         background-color: #c7d1f4;
+      }
+      &.react-calendar__tile:hover {
+        background-color: #c7d1f4;
+        border-radius: 100%;
       }
 
       &.react-calendar__tile--hasActive {

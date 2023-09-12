@@ -1,9 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: 0;
+}
+
 :root {
   font-family: Inter, roboto, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   background-color: #fff;
-  background-image: url("./assets/images/background.png");
+  background-image: url("./assets/images/bg-1.webp");
   background-size: cover;
   background-attachment: fixed;
   font-synthesis: none;
@@ -13,25 +20,11 @@
   -webkit-text-size-adjust: 100%;
   color: #374151;
 }
-
-a {
-  text-decoration: inherit;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 310px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
 button {
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+body {
+  -webkit-font-smoothing: antialiased;
 }

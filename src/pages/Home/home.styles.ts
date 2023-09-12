@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+export const Content = styled.div`
+  width: 900px;
   min-height: 334px;
   height: fit-content;
   padding: 38px 200px 38px 200px;

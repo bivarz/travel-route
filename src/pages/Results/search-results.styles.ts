@@ -5,11 +5,18 @@ interface DataResultsAreaProps {
 }
 
 export const Container = styled.div`
-  width: max-content;
-  min-height: 334px;
-  min-width: 580px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+`;
+
+export const Content = styled.div`
+  width: 900px;
+  min-width: 310px;
+  min-height: 410px;
   height: fit-content;
-  padding: 38px 200px 38px 200px;
+  /* padding: 38px 200px 38px 200px; */
   border-radius: 16px;
   background-color: #fff;
   display: flex;
@@ -22,6 +29,7 @@ export const Middle = styled.section`
   flex-direction: column;
   justify-content: center;
   width: fit-content;
+  /* gap: 30px; */
 `;
 
 export const DataResultsArea = styled.section<DataResultsAreaProps>`
@@ -58,7 +66,6 @@ export const ButtonArea = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px;
-  align-items: bottom;
 `;
 
 export const Button = styled.button`
