@@ -23,7 +23,7 @@
 button {
   cursor: pointer;
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 body {
   -webkit-font-smoothing: antialiased;

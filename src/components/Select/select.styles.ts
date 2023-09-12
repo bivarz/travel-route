@@ -38,7 +38,7 @@ export const FloatingBox = styled.div`
   &::before {
     content: "";
     position: absolute;
-    top: -8px; /* Posição ajustada para que a ponta fique voltada para baixo */
+    top: -8px;
     left: 8px;
     width: 0;
     height: 0;

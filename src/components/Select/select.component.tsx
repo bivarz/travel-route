@@ -20,5 +20,4 @@ export const Select = ({ data, handleClick }: SelectProps) => {
       </FloatingBox>
     </Container>
   );
-  handleClick;
 };
