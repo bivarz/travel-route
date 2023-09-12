@@ -43,7 +43,9 @@ export const Input = styled.input<InputProps>`
   letter-spacing: 0em;
   text-align: left;
   margin: 0px;
-
+  &.error {
+    border: 1px solid #ff0000;
+  }
   &.date {
     font-family: Inter;
     font-size: 12px;
@@ -52,6 +54,11 @@ export const Input = styled.input<InputProps>`
     text-align: center;
     color: #374151;
     word-spacing: 2px;
+    text-align: center;
+
+    &.error {
+      border: 1px solid blue;
+    }
   }
 `;
 
@@ -72,4 +79,8 @@ export const ErrorMsg = styled.p`
   margin: 0px;
   color: red;
   height: 20px;
+`;
+
+export const LabelArea = styled.div`
+  width: max-content;
 `;

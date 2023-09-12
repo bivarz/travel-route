@@ -15,4 +15,5 @@ export interface CustomInputTypes {
   onBlur?: () => void;
   onFocus?: () => void;
   readOnly?: boolean;
+  id?: string;
 }
