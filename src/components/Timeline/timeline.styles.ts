@@ -5,7 +5,7 @@ export const Container = styled.div`
 `;
 export const PointsArea = styled.div`
   position: relative;
-  margin: 30px 0px 10px 0px;
+  margin: 20px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,6 +21,7 @@ export const Point = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px 0px;
 `;
 export const CitiesName = styled.p`
   top: 0px;
@@ -38,13 +39,13 @@ export const CitiesName = styled.p`
 
 export const Line = styled.div`
   width: 0;
-  height: 45px;
+  height: 40px;
   border-left: 2px dotted #374151;
-  margin: 10px 0px 10px 0px;
+  /* margin: 10px 0px 10px 0px; */
 `;
 
 export const AddNewPointButtonArea = styled.div`
-  padding-top: 20px;
+  padding-top: 5px;
 `;
 
 export const AddNewPointButton = styled.button`

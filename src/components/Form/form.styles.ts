@@ -118,6 +118,7 @@ export const SubmitButtonArea = styled.div`
   align-items: end;
   display: flex;
   justify-content: center;
+  height: 100px;
 `;
 
 export const SubmitButton = styled.button`

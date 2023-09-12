@@ -246,8 +246,19 @@ export const CalendarCustom = () => {
   };
 
   const handlePickDate = (value: Date) => {
+    const currentDate = new Date();
+    if (
+      value.getFullYear() < currentDate.getFullYear() ||
+      (value.getFullYear() === currentDate.getFullYear() &&
+        value.getMonth() < currentDate.getMonth())
+    ) {
+      setDateError("Sorry,Time travel is not allowed");
+      return;
+    }
+    setDateError(null);
     setCalendarValue(value);
     setDate(formatDateToDDMMYYYY(value));
+    setShowCalendar(false);
   };
 
   return (

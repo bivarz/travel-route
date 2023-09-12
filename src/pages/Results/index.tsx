@@ -4,6 +4,7 @@ import {
   DataResultsArea,
   ButtonArea,
   Button,
+  Content,
 } from "./search-results.styles";
 import { Timeline } from "../../components/Timeline/timeline.component";
 import { useNavigate } from "react-router-dom";
@@ -17,27 +18,29 @@ const Results: React.FC = () => {
   const navigate = useNavigate();
   return (
     <Container>
-      <Middle>
-        {!error && <Timeline data={cities} />}
-        <DataResultsArea error={error}>
-          {error ? (
-            <span>Oops! Something went wrong!</span>
-          ) : (
-            <>
-              <p>
-                <span>{distance} km </span>is total distance
-              </p>
-              <p>
-                <span>{passengers} </span>passengers
-              </p>
-              <span>Feb 14, 2023</span>
-            </>
-          )}
-        </DataResultsArea>
-        <ButtonArea>
-          <Button onClick={() => navigate("/travel-route/")}>Back</Button>
-        </ButtonArea>
-      </Middle>
+      <Content>
+        <Middle>
+          {!error && <Timeline data={cities} />}
+          <DataResultsArea error={error}>
+            {error ? (
+              <span>Oops! Something went wrong!</span>
+            ) : (
+              <>
+                <p>
+                  <span>{distance} km </span>is total distance
+                </p>
+                <p>
+                  <span>{passengers} </span>passengers
+                </p>
+                <span>Feb 14, 2023</span>
+              </>
+            )}
+          </DataResultsArea>
+          <ButtonArea>
+            <Button onClick={() => navigate("/travel-route/")}>Back</Button>
+          </ButtonArea>
+        </Middle>
+      </Content>
     </Container>
   );
 };

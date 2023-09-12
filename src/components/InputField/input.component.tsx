@@ -7,6 +7,7 @@ import {
   Input,
   InputFieldArea,
   Label,
+  LabelArea,
 } from "./input.styles";
 import { CustomInputTypes } from "./input.types";
 import CancelXIcon from "../../assets/icons/x-icon.svg";
@@ -24,6 +25,7 @@ export const CustomInput = ({
   onBlur,
   onFocus,
   readOnly,
+  id,
 }: CustomInputTypes) => {
   return (
     <React.Fragment>
@@ -39,6 +41,8 @@ export const CustomInput = ({
                 $fullwidth={$fullwidth}
                 onBlur={onBlur}
                 onFocus={onFocus}
+                className={errorMsg ? "error" : "default"}
+                id={`${id}`}
               ></Input>
               {showClearButton && (
                 <ClearInputButton onClick={onClear}>
@@ -52,14 +56,19 @@ export const CustomInput = ({
       )}
       {type === "date-field" && (
         <React.Fragment>
-          <Label>{label}</Label>
-          {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
+          <LabelArea>
+            {errorMsg ? (
+              <ErrorMsg>{errorMsg}</ErrorMsg>
+            ) : (
+              <Label>{label}</Label>
+            )}
+          </LabelArea>
           <Input
             type="text"
             value={value}
             onChange={onChange}
             $fullwidth={$fullwidth}
-            className="date"
+            className={errorMsg ? "error" : "date"}
             onBlur={onBlur}
             readOnly={readOnly}
           />
