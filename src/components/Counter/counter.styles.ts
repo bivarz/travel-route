@@ -42,8 +42,8 @@ export const Button = styled.button`
   font-family: Inter;
   display: flex;
   align-items: center;
-
   text-align: center;
+  justify-content: center;
 
   &:hover {
     background-color: #7786d2;
