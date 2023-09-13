@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-interface DataResultsAreaProps {
-  error: boolean;
-}
-
 export const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -32,13 +28,12 @@ export const Middle = styled.section`
   /* gap: 30px; */
 `;
 
-export const DataResultsArea = styled.section<DataResultsAreaProps>`
+export const DataResultsArea = styled.section`
   width: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: ${(props) => (props.error ? "223px" : "")};
   gap: 10px;
 
   p {
@@ -59,6 +54,10 @@ export const DataResultsArea = styled.section<DataResultsAreaProps>`
     letter-spacing: 0em;
     text-align: left;
     color: #7786d2;
+  }
+
+  &.error {
+    height: 223px;
   }
 `;
 

@@ -3,7 +3,6 @@ import { GlobalContext } from "../../context/GlobalContext";
 
 export function useAdditionalStops() {
   const { listOfFields, setListOfFields } = useContext(GlobalContext);
-
   const addStop = () => {
     if (listOfFields?.length === 5) {
       return;
@@ -27,7 +26,14 @@ export function useAdditionalStops() {
     setListOfFields(newStops);
   };
 
-  return { addStop, removeStop, updateStop };
+  const updateSelectedStop = (index: number, city: string) => {
+    const newStops = listOfFields.map((stop) =>
+      stop.id === index ? { ...stop, value: city } : stop
+    );
+    setListOfFields(newStops);
+  };
+
+  return { addStop, removeStop, updateStop, updateSelectedStop };
 }
 
 export default useAdditionalStops;
