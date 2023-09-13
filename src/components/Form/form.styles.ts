@@ -70,6 +70,7 @@ export const InputSuggestions = styled.div`
     font-size: 12px;
     font-weight: 500;
     line-height: 16px;
+    padding-left: 5px;
 
     &:hover {
       background-color: #c7d1f4;
@@ -95,7 +96,7 @@ export const InputSuggestions = styled.div`
   &::before {
     content: "";
     position: absolute;
-    top: -8px; /* Posição ajustada para que a ponta fique voltada para baixo */
+    top: -8px;
     left: 8px;
     width: 0;
     height: 0;

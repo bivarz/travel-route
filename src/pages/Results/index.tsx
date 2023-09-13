@@ -8,9 +8,13 @@ import {
 } from "./search-results.styles";
 import { Timeline } from "../../components/Timeline/timeline.component";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const Results: React.FC = () => {
-  const error = false;
+  const { listOfFields } = useContext(GlobalContext);
+  const error = true;
+  console.log(listOfFields);
   const cities = ["Paris", "Montpellier"];
   const distance = 463.3;
   const passengers = 4;
@@ -21,7 +25,7 @@ const Results: React.FC = () => {
       <Content>
         <Middle>
           {!error && <Timeline data={cities} />}
-          <DataResultsArea error={error}>
+          <DataResultsArea className={error ? "error" : ""}>
             {error ? (
               <span>Oops! Something went wrong!</span>
             ) : (

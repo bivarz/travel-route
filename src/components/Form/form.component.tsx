@@ -20,7 +20,8 @@ import { inputErrorMessages } from "../../utils/errorMessages";
 
 export const FormComponent = () => {
   const { listOfFields } = useContext(GlobalContext);
-  const { addStop, removeStop, updateStop } = useAdditionalStops();
+  const { addStop, removeStop, updateStop, updateSelectedStop } =
+    useAdditionalStops();
   const [showSuggestionsCities, setShowSuggestionsCities] = useState(false);
   const [filterText, setFilterText] = useState("");
   const [focusedInputId, setFocusedInputId] = useState<number | null>(null);
@@ -56,14 +57,13 @@ export const FormComponent = () => {
   };
 
   const handleInputChange = (id: number, value: string) => {
+    filterCitySuggestions(value);
     updateStop(id, value);
     setFilterText(value);
-    filterCitySuggestions(value);
   };
 
   const handleBlur = (value: string | null, id: number) => {
-    setShowSuggestionsCities(false);
-    if (id === listOfFields?.[id - 1].id) {
+    if (id === listOfFields?.[id - 1]?.id) {
       if (listOfFields?.[0]?.value === "" && id !== 1) {
         const newErrorMessages = [...errorMessages];
         newErrorMessages[1] = inputErrorMessages.cityOfOrigin;
@@ -83,10 +83,18 @@ export const FormComponent = () => {
         newErrorMessages[id] = inputErrorMessages.searchFail;
         setErrorMessages(newErrorMessages);
       } else if (
-        !filteredArray.some((item) => item.city.toLocaleLowerCase() === value)
+        !filteredArray.some(
+          (item) => item?.city.toLocaleLowerCase() === value.toLocaleLowerCase()
+        )
       ) {
         const newErrorMessages = [...errorMessages];
         newErrorMessages[id] = inputErrorMessages.wordNotMatch;
+        setErrorMessages(newErrorMessages);
+      } else if (
+        listOfFields?.[id - 1]?.value === listOfFields?.[id - 2]?.value
+      ) {
+        const newErrorMessages = [...errorMessages];
+        newErrorMessages[id] = inputErrorMessages.sameCity;
         setErrorMessages(newErrorMessages);
       } else {
         const newErrorMessages = [...errorMessages];
@@ -101,6 +109,13 @@ export const FormComponent = () => {
     const newErrorMessages = [...errorMessages];
     newErrorMessages[id] = null;
     setErrorMessages(newErrorMessages);
+  };
+
+  const handleUpdateCity = (id: number, city: string) => {
+    updateSelectedStop(id, city);
+    setShowSuggestionsCities(false);
+    const input = document?.getElementById(`${id}`);
+    input?.focus();
   };
 
   return (
@@ -120,7 +135,7 @@ export const FormComponent = () => {
                 onClear={() => updateStop(stop.id, "")}
                 onFocus={() => handleFocus(stop.id)}
                 onBlur={() => handleBlur(stop.value, stop.id)}
-                errorMsg={errorMessages[stop.id]}
+                errorMsg={errorMessages[stop.id]?.toString() || null}
                 id={`${stop?.id}`}
               />
               {showSuggestionsCities && focusedInputId === stop.id && (
@@ -128,10 +143,7 @@ export const FormComponent = () => {
                   {filteredArray.map((item, index: number) => (
                     <button
                       key={index}
-                      onClick={() => {
-                        updateStop(stop.id, item?.city);
-                        setShowSuggestionsCities(false);
-                      }}
+                      onClick={() => handleUpdateCity(stop?.id, item?.city)}
                     >
                       {typeof item === "object" ? item.city : item}
                     </button>

@@ -43,9 +43,11 @@ export const Input = styled.input<InputProps>`
   letter-spacing: 0em;
   text-align: left;
   margin: 0px;
+
   &.error {
     border: 1px solid #ff0000;
   }
+
   &.date {
     font-family: Inter;
     font-size: 12px;
@@ -67,7 +69,7 @@ export const ClearInputButton = styled.button`
   border: none;
   background-color: transparent;
   top: 5px;
-  right: -10px;
+  right: 5px;
 `;
 
 export const ErrorMsg = styled.p`
