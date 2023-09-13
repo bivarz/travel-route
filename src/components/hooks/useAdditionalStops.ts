@@ -26,9 +26,14 @@ export function useAdditionalStops() {
     setListOfFields(newStops);
   };
 
-  const updateSelectedStop = (index: number, city: string) => {
+  const updateSelectedStop = (
+    index: number,
+    city: string,
+    la: number,
+    lo: number
+  ) => {
     const newStops = listOfFields.map((stop) =>
-      stop.id === index ? { ...stop, value: city } : stop
+      stop.id === index ? { ...stop, value: city, la: la, lo: lo } : stop
     );
     setListOfFields(newStops);
   };

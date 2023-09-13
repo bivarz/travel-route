@@ -16,9 +16,10 @@ import {
 } from "./timeline.styles";
 import useAdditionalStops from "../hooks/useAdditionalStops";
 import { GlobalContext } from "../../context/GlobalContext";
+import { AdditionalStop } from "../hooks/hooks.types";
 
 type TimeLineProps = {
-  data?: string[];
+  data?: AdditionalStop[];
 };
 
 export const Timeline = ({ data }: TimeLineProps) => {
@@ -38,7 +39,7 @@ export const Timeline = ({ data }: TimeLineProps) => {
                 alt="point-icon"
               />
               {data?.length !== 0 ? (
-                <CitiesName>{data?.[index] || ""}</CitiesName>
+                <CitiesName>{data?.[index].value}</CitiesName>
               ) : null}
               {index > 0 && data ? <Tooltip /> : null}
             </Point>

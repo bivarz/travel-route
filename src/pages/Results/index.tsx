@@ -13,9 +13,8 @@ import { GlobalContext } from "../../context/GlobalContext";
 
 const Results: React.FC = () => {
   const { listOfFields } = useContext(GlobalContext);
-  const error = true;
   console.log(listOfFields);
-  const cities = ["Paris", "Montpellier"];
+  const error = false;
   const distance = 463.3;
   const passengers = 4;
 
@@ -24,7 +23,7 @@ const Results: React.FC = () => {
     <Container>
       <Content>
         <Middle>
-          {!error && <Timeline data={cities} />}
+          {!error && <Timeline data={listOfFields} />}
           <DataResultsArea className={error ? "error" : ""}>
             {error ? (
               <span>Oops! Something went wrong!</span>
