@@ -11,7 +11,10 @@ export function useAdditionalStops() {
       listOfFields.length >= 2
         ? listOfFields[listOfFields?.length - 1].id + 1
         : 0;
-    setListOfFields([...listOfFields, { id: newId, value: "" }]);
+    setListOfFields([
+      ...listOfFields,
+      { id: newId, value: "", la: "", lo: "" },
+    ]);
   };
 
   const removeStop = (index: number) => {
@@ -19,16 +22,21 @@ export function useAdditionalStops() {
     setListOfFields(newStops);
   };
 
-  const updateStop = (index: number, value: string) => {
+  const updateStop = (index: number, value: string, la: string, lo: string) => {
     const newStops = listOfFields.map((stop) =>
-      stop.id === index ? { ...stop, value } : stop
+      stop.id === index ? { ...stop, value, la, lo } : stop
     );
     setListOfFields(newStops);
   };
 
-  const updateSelectedStop = (index: number, city: string) => {
+  const updateSelectedStop = (
+    index: number,
+    city: string,
+    la: string,
+    lo: string
+  ) => {
     const newStops = listOfFields.map((stop) =>
-      stop.id === index ? { ...stop, value: city } : stop
+      stop.id === index ? { ...stop, value: city, la, lo } : stop
     );
     setListOfFields(newStops);
   };

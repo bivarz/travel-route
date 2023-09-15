@@ -35,6 +35,7 @@ export const CustomInput = ({
             <Label>{label}</Label>
             <InputFieldArea>
               <Input
+                autoComplete="off"
                 type="text"
                 value={value}
                 onChange={onChange}
