@@ -59,7 +59,12 @@ export const FormComponent = () => {
 
   const handleInputChange = (id: number, value: string) => {
     filterCitySuggestions(value);
-    updateStop(id, value);
+    updateStop(
+      id,
+      value,
+      filteredArray[0]?.la?.toString() || "",
+      filteredArray[0]?.lo?.toString() || ""
+    );
     setFilterText(value);
   };
 
@@ -91,17 +96,12 @@ export const FormComponent = () => {
         newErrorMessages[id] = inputErrorMessages.wordNotMatch;
         setErrorMessages(newErrorMessages);
       } else if (
-        listOfFields?.[id - 1]?.value === listOfFields?.[id - 2]?.value
+        listOfFields?.[id - 1]?.value.toLocaleLowerCase() ===
+        listOfFields?.[id - 2]?.value.toLocaleLowerCase()
       ) {
         const newErrorMessages = [...errorMessages];
         newErrorMessages[id] = inputErrorMessages.sameCity;
         setErrorMessages(newErrorMessages);
-      } else if (
-        listOfFields?.[id - 1]?.value === "" &&
-        value !== null &&
-        value !== ""
-      ) {
-        console.log("Input anterior está vazio e o próximo tem algum valor");
       } else {
         const newErrorMessages = [...errorMessages];
         newErrorMessages[id] = null;
@@ -112,7 +112,7 @@ export const FormComponent = () => {
   };
 
   const handleClearinput = (id: number) => {
-    updateStop(id, "");
+    updateStop(id, "", "", "");
     setInputFocusById(id);
   };
 
@@ -131,14 +131,15 @@ export const FormComponent = () => {
   const handleUpdateCity = (
     id: number,
     city: string,
-    la: number,
-    lo: number
+    la: string,
+    lo: string
   ) => {
     updateSelectedStop(id, city, la, lo);
     setShowSuggestionsCities(false);
     const input = document?.getElementById(`${id}`);
     input?.focus();
   };
+  console.log("form", listOfFields[0], listOfFields[1]);
 
   return (
     <Container>
@@ -169,8 +170,8 @@ export const FormComponent = () => {
                         handleUpdateCity(
                           stop?.id,
                           item?.city,
-                          item?.la,
-                          item?.lo
+                          item?.la.toString(),
+                          item.lo.toString()
                         )
                       }
                     >

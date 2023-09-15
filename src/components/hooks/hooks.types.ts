@@ -3,6 +3,6 @@ export type AdditionalStop = {
   value: string;
   index?: number;
   city?: string;
-  la?: number;
-  lo?: number;
+  la?: string;
+  lo?: string;
 };
