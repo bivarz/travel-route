@@ -8,25 +8,31 @@ import {
 } from "./search-results.styles";
 import { Timeline } from "../../components/Timeline/timeline.component";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 
 const Results: React.FC = () => {
   const { listOfFields } = useContext(GlobalContext);
-  const error = true;
-  console.log(listOfFields);
-  const cities = ["Paris", "Montpellier"];
-  const distance = 463.3;
-  const passengers = 4;
 
   const navigate = useNavigate();
+  const [errorView, setErrorView] = useState(false);
+  const distance = 463.3;
+  const passengers = 4;
+  console.log("results", listOfFields[0], listOfFields[1]);
+
+  useEffect(() => {
+    if (listOfFields[0].value === "") {
+      setErrorView(true);
+    }
+  }, [listOfFields]);
+
   return (
     <Container>
       <Content>
         <Middle>
-          {!error && <Timeline data={cities} />}
-          <DataResultsArea className={error ? "error" : ""}>
-            {error ? (
+          {!errorView && <Timeline data={listOfFields} />}
+          <DataResultsArea className={errorView ? "error" : ""}>
+            {errorView ? (
               <span>Oops! Something went wrong!</span>
             ) : (
               <>

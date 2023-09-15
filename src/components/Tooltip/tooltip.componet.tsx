@@ -1,8 +1,16 @@
+import React from "react";
+
 import { Container, Typography } from "./tooltip.styles";
-export const Tooltip = () => {
+interface TooltipProps {
+  data: string;
+}
+
+const Tooltip: React.FC<TooltipProps> = ({ data }) => {
   return (
     <Container>
-      <Typography>765.30 km</Typography>
+      <Typography>{data} km</Typography>
     </Container>
   );
 };
+
+export default Tooltip;

@@ -17,6 +17,7 @@ import { transformedAppendixA } from "../../utils/transformDataAppendix";
 import { GlobalContext } from "../../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import { inputErrorMessages } from "../../utils/errorMessages";
+import { setInputFocusById } from "../../utils/setInputFocusById";
 
 export const FormComponent = () => {
   const { listOfFields } = useContext(GlobalContext);
@@ -58,7 +59,12 @@ export const FormComponent = () => {
 
   const handleInputChange = (id: number, value: string) => {
     filterCitySuggestions(value);
-    updateStop(id, value);
+    updateStop(
+      id,
+      value,
+      filteredArray[0]?.la?.toString() || "",
+      filteredArray[0]?.lo?.toString() || ""
+    );
     setFilterText(value);
   };
 
@@ -68,8 +74,7 @@ export const FormComponent = () => {
         const newErrorMessages = [...errorMessages];
         newErrorMessages[1] = inputErrorMessages.cityOfOrigin;
         setFocusedInputId(id - 1);
-        const input = document?.getElementById("1");
-        input?.focus();
+        setInputFocusById(1);
         setErrorMessages(newErrorMessages);
       } else if (value === null || value === "") {
         if (id === 1) {
@@ -91,7 +96,8 @@ export const FormComponent = () => {
         newErrorMessages[id] = inputErrorMessages.wordNotMatch;
         setErrorMessages(newErrorMessages);
       } else if (
-        listOfFields?.[id - 1]?.value === listOfFields?.[id - 2]?.value
+        listOfFields?.[id - 1]?.value.toLocaleLowerCase() ===
+        listOfFields?.[id - 2]?.value.toLocaleLowerCase()
       ) {
         const newErrorMessages = [...errorMessages];
         newErrorMessages[id] = inputErrorMessages.sameCity;
@@ -100,8 +106,14 @@ export const FormComponent = () => {
         const newErrorMessages = [...errorMessages];
         newErrorMessages[id] = null;
         setErrorMessages(newErrorMessages);
+        setShowSuggestionsCities(false);
       }
     }
+  };
+
+  const handleClearinput = (id: number) => {
+    updateStop(id, "", "", "");
+    setInputFocusById(id);
   };
 
   const handleFocus = (id: number) => {
@@ -111,12 +123,23 @@ export const FormComponent = () => {
     setErrorMessages(newErrorMessages);
   };
 
-  const handleUpdateCity = (id: number, city: string) => {
-    updateSelectedStop(id, city);
+  const handleRemoveStop = (id: number) => {
+    removeStop(id);
+    setInputFocusById(listOfFields?.length - 1);
+  };
+
+  const handleUpdateCity = (
+    id: number,
+    city: string,
+    la: string,
+    lo: string
+  ) => {
+    updateSelectedStop(id, city, la, lo);
     setShowSuggestionsCities(false);
     const input = document?.getElementById(`${id}`);
     input?.focus();
   };
+  console.log("form", listOfFields[0], listOfFields[1]);
 
   return (
     <Container>
@@ -132,7 +155,7 @@ export const FormComponent = () => {
                   handleInputChange(stop.id, e.target.value);
                 }}
                 showClearButton={stop.value !== ""}
-                onClear={() => updateStop(stop.id, "")}
+                onClear={() => handleClearinput(stop.id)}
                 onFocus={() => handleFocus(stop.id)}
                 onBlur={() => handleBlur(stop.value, stop.id)}
                 errorMsg={errorMessages[stop.id]?.toString() || null}
@@ -143,7 +166,14 @@ export const FormComponent = () => {
                   {filteredArray.map((item, index: number) => (
                     <button
                       key={index}
-                      onClick={() => handleUpdateCity(stop?.id, item?.city)}
+                      onClick={() =>
+                        handleUpdateCity(
+                          stop?.id,
+                          item?.city,
+                          item?.la.toString(),
+                          item.lo.toString()
+                        )
+                      }
                     >
                       {typeof item === "object" ? item.city : item}
                     </button>
@@ -152,7 +182,7 @@ export const FormComponent = () => {
               )}
             </InputWrapper>
             {listOfFields.length > 2 && stop.id !== 1 && (
-              <RemoveButton onClick={() => removeStop(stop.id)}>
+              <RemoveButton onClick={() => handleRemoveStop(stop.id)}>
                 <img src={CancelIcon} alt="" />
               </RemoveButton>
             )}

@@ -15,8 +15,8 @@ export const GlobalContext = createContext<GlobalontextData>(
 
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [listOfFields, setListOfFields] = useState<AdditionalStop[]>([
-    { id: 1, value: "" },
-    { id: 2, value: "" },
+    { id: 1, value: "", la: "", lo: "" },
+    { id: 2, value: "", la: "", lo: "" },
   ]);
   return (
     <GlobalContext.Provider
