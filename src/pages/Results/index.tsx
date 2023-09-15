@@ -18,7 +18,6 @@ const Results: React.FC = () => {
   const [errorView, setErrorView] = useState(false);
   const distance = 463.3;
   const passengers = 4;
-  console.log("results", listOfFields[0], listOfFields[1]);
 
   useEffect(() => {
     if (listOfFields[0].value === "") {
