@@ -23,3 +23,31 @@ export const distanceBetweenPoints = (
 
   return distance;
 };
+
+export const arrayOfDistances = (array: AdditionalStop[]) => {
+  const formattedPoints: AdditionalStop[] = [];
+  const distances: number[] = [];
+
+  for (let i = 0; i < array.length; i++) {
+    const segment = array[i];
+    formattedPoints.push({
+      ...segment,
+      la: segment.la || "",
+      lo: segment.lo || "",
+    });
+  }
+
+  formattedPoints.map((_, index: number) => {
+    if (index > 0) {
+      const d = distanceBetweenPoints(
+        formattedPoints[index - 1],
+        formattedPoints[index]
+      );
+      if (d !== undefined) {
+        distances?.push(parseFloat(d?.toFixed(2)));
+      }
+    }
+  });
+
+  return distances;
+};
