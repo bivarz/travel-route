@@ -16,7 +16,6 @@ const Results: React.FC = () => {
 
   const navigate = useNavigate();
   const [errorView, setErrorView] = useState(false);
-  const distance = 463.3;
   const passengers = 4;
 
   useEffect(() => {
