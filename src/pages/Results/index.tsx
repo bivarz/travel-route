@@ -12,13 +12,12 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 
 const Results: React.FC = () => {
-  const { listOfFields } = useContext(GlobalContext);
+  const { listOfFields, totalDistance } = useContext(GlobalContext);
 
   const navigate = useNavigate();
   const [errorView, setErrorView] = useState(false);
   const distance = 463.3;
   const passengers = 4;
-  console.log("results", listOfFields[0], listOfFields[1]);
 
   useEffect(() => {
     if (listOfFields[0].value === "") {
@@ -37,7 +36,7 @@ const Results: React.FC = () => {
             ) : (
               <>
                 <p>
-                  <span>{distance} km </span>is total distance
+                  <span>{totalDistance} km </span>is total distance
                 </p>
                 <p>
                   <span>{passengers} </span>passengers

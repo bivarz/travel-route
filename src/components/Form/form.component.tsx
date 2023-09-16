@@ -139,7 +139,6 @@ export const FormComponent = () => {
     const input = document?.getElementById(`${id}`);
     input?.focus();
   };
-  console.log("form", listOfFields[0], listOfFields[1]);
 
   return (
     <Container>
