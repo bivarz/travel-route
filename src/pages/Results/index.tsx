@@ -35,7 +35,7 @@ const Results: React.FC = () => {
             ) : (
               <>
                 <p>
-                  <span>{totalDistance} km </span>is total distance
+                  <span>{totalDistance.toFixed(2)} km </span>is total distance
                 </p>
                 <p>
                   <span>{passengers} </span>passengers

@@ -14,6 +14,7 @@ export interface CustomInputTypes {
   onClear?: () => void;
   onBlur?: () => void;
   onFocus?: () => void;
+  onKeyDown?: (e: KeyboardEvent) => void;
   readOnly?: boolean;
   id?: string;
 }

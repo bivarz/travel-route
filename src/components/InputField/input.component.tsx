@@ -44,9 +44,15 @@ export const CustomInput = ({
                 onFocus={onFocus}
                 className={errorMsg ? "error" : "default"}
                 id={`${id}`}
+                aria-labelledby={id === "1" ? "origin" : "destination"}
+                placeholder={
+                  id === "1"
+                    ? "Enter the city of origin."
+                    : "Enter the city of destination."
+                }
               ></Input>
               {showClearButton && (
-                <ClearInputButton onClick={onClear}>
+                <ClearInputButton role="clear" type="button" onClick={onClear}>
                   <img src={CancelXIcon} alt="" />
                 </ClearInputButton>
               )}
@@ -72,6 +78,7 @@ export const CustomInput = ({
             className={errorMsg ? "error" : "date"}
             onBlur={onBlur}
             readOnly={readOnly}
+            aria-labelledby="date"
           />
         </React.Fragment>
       )}

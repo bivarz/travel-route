@@ -27,6 +27,11 @@ export const AddButton = styled.button`
   background: transparent;
   padding: 2px;
   border: 1px solid transparent;
+
+  &:focus {
+    border: 1.5px dotted #7786d2;
+    border-radius: 5px;
+  }
 `;
 
 export const InputArea = styled.div`
@@ -74,6 +79,11 @@ export const InputSuggestions = styled.div`
 
     &:hover {
       background-color: #c7d1f4;
+    }
+
+    &:focus {
+      background-color: #c7d1f4;
+      outline: 1px dotted #c7d1f4;
     }
   }
 
