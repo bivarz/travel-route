@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { CustomInput } from "../InputField/index";
 import "react-calendar/dist/Calendar.css";
 import ArrowLeft from "../../assets/icons/arrow-left-icon.svg";
@@ -23,6 +23,7 @@ import {
   YearArea,
 } from "./calendar.styles";
 import { formatDateToDDMMYYYY } from "../../utils/formatDate";
+import { GlobalContext } from "../../context/GlobalContext";
 
 type CalendarValues = {
   day: number;
@@ -36,6 +37,7 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const CalendarCustom = () => {
+  const { setDateValue } = useContext(GlobalContext);
   const [calendarValue, setCalendarValue] = useState<Value>(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const [showMonthList, setShowMonthList] = useState(false);
@@ -59,6 +61,13 @@ export const CalendarCustom = () => {
     const currentYear = new Date().getFullYear();
     return currentYear;
   });
+
+  useEffect(() => {
+    if (calendarValue) {
+      const transformToString = calendarValue.toString();
+      setDateValue(transformToString);
+    }
+  }, [calendarValue, setDateValue]);
 
   useEffect(() => {
     const initialDate = new Date();
@@ -219,6 +228,7 @@ export const CalendarCustom = () => {
   const updateCalendarAndPickDateValues = (value: Value) => {
     if (value instanceof Date) {
       setCalendarValue(value);
+
       setPickDateValues([
         {
           day: value.getDate(),
@@ -242,6 +252,7 @@ export const CalendarCustom = () => {
           year: startDate.getFullYear(),
         },
       ]);
+      console.log(calendarValue);
     }
   };
 
