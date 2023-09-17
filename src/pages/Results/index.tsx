@@ -10,14 +10,13 @@ import { Timeline } from "../../components/Timeline/timeline.component";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
+import { formatDateMMDDYYYY } from "../../utils/formatDate";
 
 const Results: React.FC = () => {
-  const { listOfFields, totalDistance } = useContext(GlobalContext);
-
-  const navigate = useNavigate();
+  const { listOfFields, totalDistance, passengers, dateValue } =
+    useContext(GlobalContext);
   const [errorView, setErrorView] = useState(false);
-  const distance = 463.3;
-  const passengers = 4;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (listOfFields[0].value === "") {
@@ -41,7 +40,7 @@ const Results: React.FC = () => {
                 <p>
                   <span>{passengers} </span>passengers
                 </p>
-                <span>Feb 14, 2023</span>
+                <span>{formatDateMMDDYYYY(dateValue)}</span>
               </>
             )}
           </DataResultsArea>

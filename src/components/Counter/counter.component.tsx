@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
   Button,
@@ -8,8 +8,10 @@ import {
   ErrorMsg,
   Title,
 } from "./counter.styles";
+import { GlobalContext } from "../../context/GlobalContext";
 
 export const Counter = () => {
+  const { setPassengers } = useContext(GlobalContext);
   const [count, setCount] = useState<number>(0);
   const error = false;
 
@@ -25,6 +27,10 @@ export const Counter = () => {
       setCount(count - 1);
     }
   };
+
+  useEffect(() => {
+    setPassengers(count);
+  }, [count, setPassengers]);
 
   return (
     <Container>
