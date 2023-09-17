@@ -102,6 +102,7 @@ export const YearArea = styled.div`
   position: relative;
 `;
 export const SelectMonth = styled.button`
+  display: flex;
   position: relative;
   border: 1px solid #e5e7eb;
   width: 54px;
@@ -114,6 +115,7 @@ export const SelectMonth = styled.button`
   letter-spacing: 0em;
   text-align: center;
   align-items: center;
+  justify-content: center;
 
   &::before {
     content: "";
@@ -128,6 +130,7 @@ export const SelectMonth = styled.button`
   }
 `;
 export const SelectYear = styled.button`
+  display: flex;
   position: relative;
   border: 1px solid #e5e7eb;
   width: 54px;
@@ -140,6 +143,7 @@ export const SelectYear = styled.button`
   letter-spacing: 0em;
   text-align: center;
   align-items: center;
+  justify-content: center;
 
   &::before {
     content: "";

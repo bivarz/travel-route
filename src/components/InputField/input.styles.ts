@@ -20,6 +20,10 @@ export const InputFieldArea = styled.div`
     outline: none;
     border: 1px solid #c7d1f4;
   }
+
+  input::placeholder {
+    color: #bcbcbc;
+  }
 `;
 export const Label = styled.p`
   font-family: Inter;
