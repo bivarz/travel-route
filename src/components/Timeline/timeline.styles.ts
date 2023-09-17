@@ -45,7 +45,7 @@ export const Line = styled.div`
 `;
 
 export const AddNewPointButtonArea = styled.div`
-  padding-top: 5px;
+  padding-top: 2px;
 `;
 
 export const AddNewPointButton = styled.button`

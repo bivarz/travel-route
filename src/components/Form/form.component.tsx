@@ -203,7 +203,12 @@ export const FormComponent = () => {
         )}
       </FormContent>
       <SubmitButtonArea onClick={() => navigate("/travel-route/results")}>
-        <SubmitButton role="submit-button" id="submit-button" disabled={true}>
+        <SubmitButton
+          role="button"
+          id="submit-button"
+          disabled={true}
+          type="button"
+        >
           Submit
         </SubmitButton>
       </SubmitButtonArea>
