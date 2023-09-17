@@ -165,6 +165,8 @@ export const FormComponent = () => {
                   {filteredArray.map((item, index: number) => (
                     <button
                       key={index}
+                      role="button"
+                      type="button"
                       onClick={() =>
                         handleUpdateCity(
                           stop?.id,
@@ -181,18 +183,29 @@ export const FormComponent = () => {
               )}
             </InputWrapper>
             {listOfFields.length > 2 && stop.id !== 1 && (
-              <RemoveButton onClick={() => handleRemoveStop(stop.id)}>
+              <RemoveButton
+                role="button"
+                onClick={() => handleRemoveStop(stop.id)}
+              >
                 <img src={CancelIcon} alt="" />
               </RemoveButton>
             )}
           </InputArea>
         ))}
         {listOfFields.length < 5 && (
-          <AddButton onClick={() => handleAddStop()}>Add destination</AddButton>
+          <AddButton
+            role="button"
+            id="add-destination"
+            onClick={() => handleAddStop()}
+          >
+            Add destination
+          </AddButton>
         )}
       </FormContent>
       <SubmitButtonArea onClick={() => navigate("/travel-route/results")}>
-        <SubmitButton disabled={true}>Submit</SubmitButton>
+        <SubmitButton role="submit-button" id="submit-button" disabled={true}>
+          Submit
+        </SubmitButton>
       </SubmitButtonArea>
     </Container>
   );

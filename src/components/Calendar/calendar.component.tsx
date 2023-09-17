@@ -293,7 +293,10 @@ export const CalendarCustom = () => {
           <CalendarContainer ref={calendarRef}>
             <FloatingBox>
               <Navigation>
-                <NavigationButton onClick={() => handlePrevMonth()}>
+                <NavigationButton
+                  role="button"
+                  onClick={() => handlePrevMonth()}
+                >
                   <img src={ArrowLeft} alt="left" />
                 </NavigationButton>
                 <SelectDateArea>
@@ -326,7 +329,10 @@ export const CalendarCustom = () => {
                     )}
                   </YearArea>
                 </SelectDateArea>
-                <NavigationButton onClick={() => handleNextMonth()}>
+                <NavigationButton
+                  role="button"
+                  onClick={() => handleNextMonth()}
+                >
                   <img src={ArrowRight} alt="right" />
                 </NavigationButton>
               </Navigation>
