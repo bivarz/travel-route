@@ -50,6 +50,8 @@ export const Timeline = ({ data }: TimeLineProps) => {
               <Image
                 src={index === points.length - 1 ? LocationIcon : Circle}
                 alt="point-icon"
+                height={index === points.length - 1 ? "16px" : "13px"}
+                width={index === points.length - 1 ? "16px" : "13px"}
               />
               {data?.length !== 0 ? (
                 <CitiesName>{data?.[index].value}</CitiesName>
@@ -70,7 +72,12 @@ export const Timeline = ({ data }: TimeLineProps) => {
       <AddNewPointButtonArea>
         {!data && listOfFields.length < 5 && (
           <AddNewPointButton onClick={() => addStop()}>
-            <Image src={PlusIcon} alt="point-icon" />
+            <Image
+              height={"16px"}
+              width={"16px"}
+              src={PlusIcon}
+              alt="add-point-icon"
+            />
           </AddNewPointButton>
         )}
       </AddNewPointButtonArea>
