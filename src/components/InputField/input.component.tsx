@@ -32,7 +32,7 @@ export const CustomInput = ({
       {type === "text" && (
         <Container>
           <Content className={className}>
-            <Label>{label}</Label>
+            <Label htmlFor="date">{label}</Label>
             <InputFieldArea>
               <Input
                 autoComplete="off"
@@ -44,7 +44,7 @@ export const CustomInput = ({
                 onFocus={onFocus}
                 className={errorMsg ? "error" : "default"}
                 id={`${id}`}
-                aria-labelledby={id === "1" ? "origin" : "destination"}
+                aria-labelledby={"date"}
                 placeholder={
                   id === "1"
                     ? "Enter the city of origin."

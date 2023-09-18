@@ -25,7 +25,7 @@ export const InputFieldArea = styled.div`
     color: #bcbcbc;
   }
 `;
-export const Label = styled.p`
+export const Label = styled.label`
   font-family: "Inter", "Roboto", Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 500;
