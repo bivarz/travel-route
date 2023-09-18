@@ -43,6 +43,10 @@ To start the development server:
 - [React Calendar](https://www.npmjs.com/package/react-calendar)
 - [React Tooltip](https://www.npmjs.com/package/react-tooltip)
 
+## Metrics and performance
+
+![Screenshot das Metricas](https://github.com/bivarz/travel-route/blob/main/src/assets/images/metrics.png)
+
 ## Screenshots
 
 ![Screenshot da Página Inicial](https://github.com/bivarz/travel-route/blob/main/src/assets/screenshots/home-page.png)
