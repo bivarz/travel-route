@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-'Inter',Roboto, Arial, Helvetica, sans-serif;face StyledContentProps {
+interface StyledContentProps {
   $hasError: boolean;
 }
 
@@ -13,7 +13,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.p`
-  font-family: 'Inter',Roboto, Arial, Helvetica, sans-serif;;
+  font-family: Inter;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -39,7 +39,7 @@ export const Button = styled.button`
   border: 1px;
   background-color: #c7d1f4;
   color: #fff;
-  font-family: 'Inter',Roboto, Arial, Helvetica, sans-serif;;
+  font-family: Inter;
   display: flex;
   align-items: center;
   text-align: center;
@@ -59,7 +59,7 @@ export const ErrorArea = styled.div`
 `;
 
 export const ErrorMsg = styled.p`
-  font-family: 'Inter',Roboto, Arial, Helvetica, sans-serif;;
+  font-family: Inter;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
