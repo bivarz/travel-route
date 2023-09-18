@@ -6,7 +6,7 @@ export const Container = styled.div`
   background-color: #fff;
 `;
 export const Title = styled.p`
-  font-family: Inter;
+  font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -27,7 +27,7 @@ export const Button = styled.button`
   border: 1px;
   background-color: #c7d1f4;
   color: #fff;
-  font-family: Inter;
+  font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
   display: flex;
   align-items: center;
 
@@ -38,7 +38,7 @@ export const Button = styled.button`
   }
 `;
 export const ErrorMsg = styled.p`
-  font-family: Inter;
+  font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -108,7 +108,7 @@ export const SelectMonth = styled.button`
   width: 54px;
   border-radius: 6px;
   background-color: #c7d1f4;
-  font-family: Inter;
+  font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -136,7 +136,7 @@ export const SelectYear = styled.button`
   width: 54px;
   border-radius: 6px;
   background-color: #c7d1f4;
-  font-family: Inter;
+  font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -193,7 +193,7 @@ export const StyledCalendar = styled(Calendar)`
       padding: 5px;
 
       & button {
-        font-family: Inter;
+        font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
         color: #374151;
       }
       .react-calendar__month-view__days__day--neighboringMonth {
@@ -204,7 +204,7 @@ export const StyledCalendar = styled(Calendar)`
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
+      cursor: po "Inter", Roboto, Arial, Helvetica, sans-serif;
       border-radius: 0px;
       max-width: 100%;
       padding: 5px 0px;

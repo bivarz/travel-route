@@ -32,7 +32,7 @@ export const CustomInput = ({
       {type === "text" && (
         <Container>
           <Content className={className}>
-            <Label>{label}</Label>
+            <Label htmlFor="date">{label}</Label>
             <InputFieldArea>
               <Input
                 autoComplete="off"
@@ -79,6 +79,7 @@ export const CustomInput = ({
             onBlur={onBlur}
             readOnly={readOnly}
             aria-labelledby="date"
+            id="date"
           />
         </React.Fragment>
       )}

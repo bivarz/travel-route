@@ -1,6 +1,6 @@
 # Travel Route App with Vite!
 
-Travel Route App 
+Travel Route App
 [Check it out!](https://bivarz.github.io/travel-route/)
 
 Welcome to the Travel Route App repository! This app helps users plan their travel routes efficiently. Whether you're a globetrotter or planning a weekend getaway, this app has got you covered.
@@ -9,7 +9,7 @@ Welcome to the Travel Route App repository! This app helps users plan their trav
 
 - Plan the best travel routes between destinations.
 - Optimize routes for time and distance.
-- User-friendly interface for a seamless experience.
+- User-friendly 'Inter',Roboto, Arial, Helvetica, sans-serif;face for a seamless experience.
 
 ## Installation
 
@@ -42,6 +42,10 @@ To start the development server:
 - [Date-fns](https://date-fns.org/)
 - [React Calendar](https://www.npmjs.com/package/react-calendar)
 - [React Tooltip](https://www.npmjs.com/package/react-tooltip)
+
+## Metrics and performance
+
+![Screenshot das Metricas](https://github.com/bivarz/travel-route/blob/main/src/assets/images/metrics.png)
 
 ## Screenshots
 

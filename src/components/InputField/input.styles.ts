@@ -25,8 +25,8 @@ export const InputFieldArea = styled.div`
     color: #bcbcbc;
   }
 `;
-export const Label = styled.p`
-  font-family: Inter;
+export const Label = styled.label`
+  font-family: "Inter", "Roboto", Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0em;
@@ -35,7 +35,7 @@ export const Label = styled.p`
 `;
 
 export const Input = styled.input<InputProps>`
-  font-family: Inter;
+  font-family: "Inter", "roboto", Arial, Helvetica, sans-serif;
   border-radius: 6px;
   height: 32px;
   width: ${(props) => (props.$fullwidth ? "320px" : "132px")};
@@ -53,7 +53,7 @@ export const Input = styled.input<InputProps>`
   }
 
   &.date {
-    font-family: Inter;
+    font-family: "Inter", "roboto", Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0em;
@@ -77,7 +77,7 @@ export const ClearInputButton = styled.button`
 `;
 
 export const ErrorMsg = styled.p`
-  font-family: Inter;
+  font-family: "Inter", "roboto", Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0em;

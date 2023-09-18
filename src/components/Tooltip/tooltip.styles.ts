@@ -45,7 +45,7 @@ export const Container = styled.div`
 export const Typography = styled.p`
   margin: 0px;
   padding: 0px;
-  font-family: Inter;
+  font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;

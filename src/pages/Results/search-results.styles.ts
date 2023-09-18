@@ -38,7 +38,7 @@ export const DataResultsArea = styled.section`
 
   p {
     margin: 0px;
-    font-family: Inter;
+    font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-weight: 500;
     line-height: 16px;
@@ -47,7 +47,7 @@ export const DataResultsArea = styled.section`
   }
 
   span {
-    font-family: Inter;
+    font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-weight: 700;
     line-height: 16px;
@@ -75,5 +75,5 @@ export const Button = styled.button`
   border-radius: 4px;
   border: 1px solid #e5e7eb;
   color: #e5e7eb;
-  font-family: Inter;
+  font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
 `;
