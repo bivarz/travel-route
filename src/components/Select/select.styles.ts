@@ -21,12 +21,12 @@ export const FloatingBox = styled.div`
 
   & p {
     margin: 0px;
-    font-family: Inter;
+    font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-weight: 500;
     line-height: 16px;
     text-align: center;
-    cursor: pointer;
+    cursor: po "Inter", Roboto, Arial, Helvetica, sans-serif;
 
     &:hover {
       background-color: #c7d1f4;

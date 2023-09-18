@@ -29,7 +29,7 @@ export const CitiesName = styled.p`
   position: absolute;
   width: max-content;
   margin: 0;
-  font-family: Inter;
+  font-family: "Inter", Roboto, Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Container, Typography } from "./tooltip.styles";
-interface TooltipProps {
+'Inter',Roboto, Arial, Helvetica, sans-serif;face TooltipProps {
   data: string;
 }
 
