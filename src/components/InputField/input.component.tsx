@@ -44,7 +44,7 @@ export const CustomInput = ({
                 onFocus={onFocus}
                 className={errorMsg ? "error" : "default"}
                 id={`${id}`}
-                aria-labelledby={"date"}
+                aria-labelledby={id === "1" ? "origin" : "destination"}
                 placeholder={
                   id === "1"
                     ? "Enter the city of origin."
@@ -79,6 +79,7 @@ export const CustomInput = ({
             onBlur={onBlur}
             readOnly={readOnly}
             aria-labelledby="date"
+            id="date"
           />
         </React.Fragment>
       )}
