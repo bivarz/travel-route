@@ -11,6 +11,14 @@ interface GlobalontextData {
   setPassengers: (passengers: number) => void;
   dateValue: string;
   setDateValue: (date: string) => void;
+  body: bodyData;
+}
+
+interface bodyData {
+  listOfFields: AdditionalStop[];
+  totalDistance: number;
+  passengers: number;
+  dateValue: string;
 }
 
 interface GlobalProviderProps {
@@ -35,6 +43,13 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     },
     0
   );
+
+  const body: bodyData = {
+    listOfFields: listOfFields,
+    passengers: passengers,
+    dateValue: dateValue,
+    totalDistance: totalDistance,
+  };
   return (
     <GlobalContext.Provider
       value={{
@@ -46,6 +61,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         passengers,
         dateValue,
         setDateValue,
+        body,
       }}
     >
       {children}
