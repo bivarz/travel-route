@@ -33,7 +33,7 @@ To start the development server:
 - `lint`: Lint the project using ESLint.
 - `preview`: Preview the build using Vite.
 
-## Technologies Used
+## Technologies Used:
 
 - [React](https://reactjs.org/)
 - [Vite](https://vitejs.dev/)
